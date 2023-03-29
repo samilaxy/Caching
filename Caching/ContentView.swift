@@ -37,32 +37,7 @@ struct UnsplashImageUrls: Decodable {
     let thumb: String
 }
 
-//struct ImageView: View {
-//
-//    @ObservedObject var imageLoader = ImageLoader(dataService: <#NetworkManager#>)
-//    var urlString: String
-//
-//    var body: some View {
-//        Image(uiImage: imageLoader.image)
-//            .resizable()
-//            .scaledToFill()
-//            .onAppear {
-//                imageLoader.loadImage(from: urlString)
-//            }
-//            .onDisappear {
-//                imageLoader.cancel()
-//            }
-//    }
-//}
-//
-//struct ImageDetailView: View {
-//    let imageUrl: String
-//
-//    var body: some View {
-//        ImageView(urlString: imageUrl)
-//            .navigationTitle("Image Detail")
-//    }
-//}
+
 
 class ImageLoaderVM: ObservableObject {
     
@@ -92,7 +67,7 @@ class NetworkManager {
     func getImages() -> AnyPublisher<[UnsplashImage], Error> {
         var request =  URLRequest(url: URL(string: "https://api.unsplash.com/photos/random?count=10")!)
         let apiKey = "dixtqIxMkkn0gBKvye_yGfKHH3dUxemwT_QwBFwYW04"
-        request.setValue("Client-ID\(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("Client-ID \(apiKey)", forHTTPHeaderField: "Authorization")
         
         return  URLSession.shared.dataTaskPublisher(for: request)
             .map({$0.data})

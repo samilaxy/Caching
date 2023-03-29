@@ -15,6 +15,7 @@
 		491FC7F929D2E88D00E2D6B2 /* CachingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */; };
 		491FC7FB29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */; };
 		49F13DA029D33C5A00322CD1 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */; };
+		49F13DD829D4411900322CD1 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DD729D4411900322CD1 /* ImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingUITests.swift; sourceTree = "<group>"; };
 		491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
+		49F13DD729D4411900322CD1 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */,
+				49F13DD729D4411900322CD1 /* ImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F13DD829D4411900322CD1 /* ImageView.swift in Sources */,
 				49F13DA029D33C5A00322CD1 /* ImageGridView.swift in Sources */,
 				491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */,
 				491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */,
