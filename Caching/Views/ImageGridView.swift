@@ -9,28 +9,29 @@ import SwiftUI
 
 struct ImageGridView: View {
     
-    @StateObject private var vm: ImageLoaderVM
+    @StateObject private var viewModel: ViewModel
     
     init(dataService: NetworkManager) {
-        _vm = StateObject(wrappedValue: ImageLoaderVM(dataService: dataService))
+        _viewModel = StateObject(wrappedValue: ViewModel(dataService: dataService))
     }
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ], spacing: 20) {
-                ForEach((0..<vm.images.count), id: \.self) { index in
-                    AsyncImage(url: URL(string: vm.images[index].urls.raw), content: { image in
-                        image.resizable()
-                    }, placeholder: {
-                        ProgressView()
-                    })
-                    .frame(width: 100, height: 100)
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: [.init(.flexible()), .init(.flexible())]) {
+                    //ForEach(viewModel.images) { image in
+                        ForEach((0..<viewModel.images.count), id: \.self) { index in
+                            NavigationLink(destination: ImageDetailView(imageUrl: viewModel.images[index].urls.thumb)) {
+                                ImageView(imageUrl: viewModel.images[index].urls.regular)
+                        }
+                    }
                 }
+                .padding()
             }
-            .padding()
+            .navigationBarTitle("Unsplash Images")
+        }
+        .onAppear {
+                //  viewModel.loadImages()
         }
     }
 }

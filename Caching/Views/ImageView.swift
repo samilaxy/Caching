@@ -15,17 +15,13 @@ import Combine
         init(imageUrl: String) {
             _imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: imageUrl)!))
         }
-    
+        
         var body: some View {
             Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 200)
+                .aspectRatio(contentMode: .fit)
                 .onAppear {
-                  //  imageLoader.loadImage(from: urlString)
-                }
-                .onDisappear {
-                   // imageLoader.cancel()
+                    imageLoader.load()
                 }
         }
     }
@@ -64,7 +60,7 @@ class ImageLoader: ObservableObject {
     }
     
     func load() {
-        if let image = cache[url] {
+        if let image = cache["\(url)"] {
             self.image = image
             return
         }
@@ -74,7 +70,7 @@ class ImageLoader: ObservableObject {
             .replaceError(with: nil)
             .handleEvents(receiveOutput: { [weak self] image in
                 if let image = image {
-                    self?.cache[self?.url ?? ""] = image
+                    self?.cache["\(String(describing: self?.url))" ] = image
                 }
             })
             .receive(on: DispatchQueue.main)
