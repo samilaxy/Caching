@@ -17,12 +17,14 @@ import Combine
         }
         
         var body: some View {
-            Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .onAppear {
-                    imageLoader.load()
-                }
+            VStack {
+                Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
+                    .resizable()
+                    .frame(height: 200)
+                    .onAppear {
+                        imageLoader.load()
+                    }
+            }.padding(.all, 4)
         }
     }
     
@@ -36,7 +38,6 @@ import Combine
         var body: some View {
             Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
                 .onAppear {
                     imageLoader.load()
                 }

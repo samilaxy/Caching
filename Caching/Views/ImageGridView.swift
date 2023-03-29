@@ -10,6 +10,7 @@ import SwiftUI
 struct ImageGridView: View {
     
     @StateObject private var viewModel: ViewModel
+    @State private var gridLayout: [GridItem] = [ GridItem(.flexible()) ]
     
     init(dataService: NetworkManager) {
         _viewModel = StateObject(wrappedValue: ViewModel(dataService: dataService))
@@ -18,20 +19,16 @@ struct ImageGridView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: [.init(.flexible()), .init(.flexible())]) {
-                    //ForEach(viewModel.images) { image in
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: gridLayout.count % 3 + 1), alignment: .center, spacing: 10) {
                         ForEach((0..<viewModel.images.count), id: \.self) { index in
                             NavigationLink(destination: ImageDetailView(imageUrl: viewModel.images[index].urls.thumb)) {
                                 ImageView(imageUrl: viewModel.images[index].urls.regular)
                         }
                     }
-                }
-                .padding()
-            }
+                 }
+            }.padding(.leading, 4)
+            .padding(.trailing, 4)
             .navigationBarTitle("Unsplash Images")
-        }
-        .onAppear {
-                //  viewModel.loadImages()
         }
     }
 }
