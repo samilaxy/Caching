@@ -9,12 +9,11 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    static let dataService = NetworkManager()
+   
+    static let dataservice = NetworkManager()
+    
     var body: some View {
-        NavigationView {
-            ImageGridView(dataService: ContentView.dataService)
-                .navigationBarTitle("Unsplash Images")
-        }
+        ImageGridView(dataService: ContentView.dataservice)
     }
 }
 
@@ -24,7 +23,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct UnsplashImage: Decodable {
+struct UnsplashImage: Decodable, Identifiable {
     let id: String
     let urls: UnsplashImageUrls
 }
@@ -39,28 +38,30 @@ struct UnsplashImageUrls: Decodable {
 
 
 
-class ImageLoaderVM: ObservableObject {
-    
-    @Published var images: [UnsplashImage] = []
-    var networkManager = NetworkManager()
-    
-    init(dataService: NetworkManager) {
-        self.networkManager = dataService
-        self.getImages()
-    }
-    
-    var cancellables = Set<AnyCancellable>()
-    
-    func getImages(){
-        networkManager.getImages()
-            .sink { _ in
-                
-            }  receiveValue: { [weak self] returnedimages in
-                self?.images = returnedimages
-            }.store(in: &cancellables)
-        print("imagesqwer",images)
-    }
-}
+//class ImageLoaderVM: ObservableObject {
+//
+//    @Published var images: [UnsplashImage] = []
+//    var networkManager = NetworkManager()
+//    private let cache = ImageCache.shared
+//
+//    init(dataService: NetworkManager) {
+//        self.networkManager = dataService
+//        self.getImages()
+//    }
+//
+//    var cancellables = Set<AnyCancellable>()
+//
+//    func getImages(){
+//        guard images.isEmpty else { return }
+//        networkManager.getImages()
+//            .sink { _ in
+//
+//            }  receiveValue: { [weak self] returnedimages in
+//                self?.images = returnedimages
+//            }.store(in: &cancellables)
+//        print("imagesqwer",images)
+//    }
+//}
 
 class NetworkManager {
     
@@ -74,5 +75,29 @@ class NetworkManager {
             .decode(type: [UnsplashImage].self, decoder : JSONDecoder())
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
+    }
+}
+
+class ViewModel: ObservableObject {
+    
+    private let cache = ImageCache.shared
+    @Published var images: [UnsplashImage] = []
+    var networkManager = NetworkManager()
+    
+    init(dataService: NetworkManager) {
+        self.networkManager = dataService
+        self.getImages()
+    }
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    func getImages(){
+     //   guard images.isEmpty else { return }
+        networkManager.getImages()
+            .sink { _ in
+                
+            }  receiveValue: { [weak self] returnedimages in
+                self?.images = returnedimages
+            }.store(in: &cancellables)
     }
 }
