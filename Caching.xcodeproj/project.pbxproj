@@ -14,6 +14,7 @@
 		491FC7EF29D2E88D00E2D6B2 /* CachingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7EE29D2E88D00E2D6B2 /* CachingTests.swift */; };
 		491FC7F929D2E88D00E2D6B2 /* CachingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */; };
 		491FC7FB29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */; };
+		49F13DA029D33C5A00322CD1 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		491FC7F429D2E88D00E2D6B2 /* CachingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CachingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingUITests.swift; sourceTree = "<group>"; };
 		491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		491FC7DC29D2E88A00E2D6B2 /* Caching */ = {
 			isa = PBXGroup;
 			children = (
+				49F13D9E29D33C4000322CD1 /* Views */,
 				491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */,
 				491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */,
 				491FC7E129D2E88C00E2D6B2 /* Assets.xcassets */,
@@ -125,6 +128,14 @@
 				491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */,
 			);
 			path = CachingUITests;
+			sourceTree = "<group>";
+		};
+		49F13D9E29D33C4000322CD1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49F13D9F29D33C5A00322CD1 /* ImageGridView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +226,9 @@
 				Base,
 			);
 			mainGroup = 491FC7D129D2E88A00E2D6B2;
+			packageReferences = (
+				49F13D9D29D3386800322CD1 /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */,
+			);
 			productRefGroup = 491FC7DB29D2E88A00E2D6B2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F13DA029D33C5A00322CD1 /* ImageGridView.swift in Sources */,
 				491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */,
 				491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */,
 			);
@@ -583,6 +598,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		49F13D9D29D3386800322CD1 /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lukepistrol/SwiftLintPlugin";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 491FC7D229D2E88A00E2D6B2 /* Project object */;
 }
