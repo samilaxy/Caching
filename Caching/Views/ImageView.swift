@@ -38,6 +38,9 @@ import Combine
         var body: some View {
             Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
                 .resizable()
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .frame(height: 400)
+                .padding()
                 .onAppear {
                     imageLoader.load()
                 }
