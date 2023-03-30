@@ -190,6 +190,7 @@
 				491FC7D629D2E88A00E2D6B2 /* Sources */,
 				491FC7D729D2E88A00E2D6B2 /* Frameworks */,
 				491FC7D829D2E88A00E2D6B2 /* Resources */,
+				49F13E1E29D5EDEF00322CD1 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -269,7 +270,6 @@
 			);
 			mainGroup = 491FC7D129D2E88A00E2D6B2;
 			packageReferences = (
-				49F13D9D29D3386800322CD1 /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */,
 			);
 			productRefGroup = 491FC7DB29D2E88A00E2D6B2 /* Products */;
 			projectDirPath = "";
@@ -307,6 +307,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49F13E1E29D5EDEF00322CD1 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		491FC7D629D2E88A00E2D6B2 /* Sources */ = {
@@ -646,17 +667,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		49F13D9D29D3386800322CD1 /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lukepistrol/SwiftLintPlugin";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 491FC7D229D2E88A00E2D6B2 /* Project object */;
 }
