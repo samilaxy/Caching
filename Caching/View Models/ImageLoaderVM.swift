@@ -28,7 +28,6 @@ class ImageLoaderVM: ObservableObject {
         if let savedImages  = cache.get(key: imgKey) {
             image = savedImages
             isLoading = false
-            print("Getting cache image..")
         } else {
             downloadImages()
             print("downloading image..")
@@ -45,11 +44,9 @@ class ImageLoaderVM: ObservableObject {
                 guard
                         let self = self,
                         let img = returnedimage else { return }
-                       
-                self.image = returnedimage
+                 self.image = returnedimage
                 self.cache.add(key: self.imgKey, image: img)
             }
             .store(in: &cancellables)
          }
-    
-}
+    }
