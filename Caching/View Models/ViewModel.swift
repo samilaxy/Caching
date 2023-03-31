@@ -22,7 +22,7 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    func getImages(){
+    func getImages() {
         self.isLoading = true
         guard images.isEmpty else { return }
         networkManager.getImages()
@@ -30,12 +30,7 @@ class ViewModel: ObservableObject {
                 self.isLoading = false
             }  receiveValue: { [weak self] returnedimages in
                 self?.images = returnedimages
-                self?.saveToChache(images: returnedimages)
             }
             .store(in: &cancellables)
-    }
-    
-    func saveToChache(images: [UnsplashImage]) {
-       
     }
 }
