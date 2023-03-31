@@ -143,7 +143,6 @@
 		491FC7ED29D2E88D00E2D6B2 /* CachingTests */ = {
 			isa = PBXGroup;
 			children = (
-				49E8E3D229D6FE4C0085C50D /* New Group */,
 				49F13E2629D6F1F900322CD1 /* ViewModels */,
 				49F13E2129D6EEAD00322CD1 /* Utilities */,
 				491FC7EE29D2E88D00E2D6B2 /* CachingTests.swift */,
@@ -159,13 +158,6 @@
 				491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */,
 			);
 			path = CachingUITests;
-			sourceTree = "<group>";
-		};
-		49E8E3D229D6FE4C0085C50D /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		49E8E3D329D6FE550085C50D /* Views */ = {
@@ -361,6 +353,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		49F13E1E29D5EDEF00322CD1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

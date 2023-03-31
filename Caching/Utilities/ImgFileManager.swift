@@ -1,9 +1,8 @@
-    //
-    //  ImgFileManager.swift
-    //  Caching
-    //
-    //  Created by Noye Samuel on 30/03/2023.
-    //
+//  ImgFileManager.swift
+//  Caching
+//
+//  Created by Noye Samuel on 30/03/2023.
+//
 
 import Foundation
 import SwiftUI

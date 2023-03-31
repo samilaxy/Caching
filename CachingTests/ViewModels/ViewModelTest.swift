@@ -1,9 +1,8 @@
-    //
-    //  ViewModelTest.swift
-    //  CachingTests
-    //
-    //  Created by Noye Samuel on 31/03/2023.
-    //
+//  ViewModelTest.swift
+//  CachingTests
+//
+//  Created by Noye Samuel on 31/03/2023.
+//
 
 import XCTest
 import Combine

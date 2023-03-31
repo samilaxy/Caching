@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Caching",
-            targets: ["Caching"]),
+            targets: ["Caching"])
     ],
     dependencies: [
          .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", from: "0.2.2")
@@ -26,6 +26,6 @@ let package = Package(
                 .plugin(name: "SwiftLint", package: "SwiftLintPlugin")]),
         .testTarget(
             name: "CachingTests",
-            dependencies: ["Caching"]),
+            dependencies: ["Caching"])
     ]
 )

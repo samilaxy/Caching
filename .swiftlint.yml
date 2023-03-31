@@ -1,14 +1,20 @@
 disabled_rules: # rule identifiers to exclude from running
- 
+  - trailing_whitespace
+
+opt_in_rules:
+  - empty_count
+  - empty_enum_arguments
+  - empty_parameters
+  - empty_string
+  - fatal_error_message
+  - missing_docs
+  - redundant_nil_coalescing
+  - redundant_optional_initialization
+
 cyclomatic_complexity:
   warning: 25 # two nested ifs are acceptable
   error: 50   # six nested ifs shows warning, 6 causes compile error
 
-
-opt_in_rules: # some rules are only opt-in
-  # - empty_count
-  # Find all the available rules by running:
-  # swiftlint rules
 
 #included: # paths to include during linting. `--path` is ignored if present.
 #  - Source
