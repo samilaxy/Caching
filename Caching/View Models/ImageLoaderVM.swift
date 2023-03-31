@@ -13,8 +13,8 @@ class ImageLoaderVM: ObservableObject {
     
     @Published var image: UIImage?
     @Published var isLoading = true
-    private let url: URL
-    var imgKey: String
+    @Published var url: URL
+    @Published var imgKey: String
     var cancellables = Set<AnyCancellable>()
     let cache = ImgFileManager.shared
     
