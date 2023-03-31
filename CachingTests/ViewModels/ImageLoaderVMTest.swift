@@ -6,30 +6,61 @@
 //
 
 import XCTest
+import Combine
+@testable import Caching
 
-final class ImageLoaderVMTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class ImageLoaderVMTests: XCTestCase {
+    
+    var sut: ImageLoaderVM!
+    var cancellables: Set<AnyCancellable>!
+    
+    override func setUp() {
+        super.setUp()
+        cancellables = Set<AnyCancellable>()
+        let url = URL(string: "https://example.com/image.jpg")!
+        let key = "test_image"
+        sut = ImageLoaderVM(url: url, key: key)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        cancellables = nil
+        sut = nil
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testLoadImageFromCache() {
+            // Given
+        let image = UIImage(systemName: "photo")!
+        CacheManager.shared.add(key: "test_image", image: image)
+        
+            // When
+        sut.loadImage()
+        
+            // Then
+        XCTAssertNotNil(sut.image)
+        XCTAssertEqual(sut.image, image)
+        XCTAssertFalse(sut.isLoading)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testDownloadImage() {
+            // Given
+        let expectation = self.expectation(description: "Image download")
+        let url = URL(string: "https://picsum.photos/200/300")!
+        sut.url = url
+        
+            // When
+        sut.downloadImages()
+        
+            // Then
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            XCTAssertNotNil(self.sut.image)
+            XCTAssertTrue(self.sut.image!.size.width > 0)
+            XCTAssertTrue(self.sut.image!.size.height > 0)
+            XCTAssertFalse(self.sut.isLoading)
+            expectation.fulfill()
         }
+        waitForExpectations(timeout: 6, handler: nil)
     }
-
+    
 }
+

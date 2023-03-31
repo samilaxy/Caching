@@ -16,7 +16,7 @@ class ImageLoaderVM: ObservableObject {
     @Published var url: URL
     @Published var imgKey: String
     var cancellables = Set<AnyCancellable>()
-    let cache = ImgFileManager.shared
+    let cache = CacheManager.shared
     
     init(url: URL, key: String) {
         self.url = url
@@ -25,7 +25,7 @@ class ImageLoaderVM: ObservableObject {
     }
     
     func loadImage() {
-        if let savedImages  = cache.get(key: imgKey) {
+        if let savedImages = cache.get(key: imgKey) {
             image = savedImages
             isLoading = false
         } else {
@@ -33,20 +33,19 @@ class ImageLoaderVM: ObservableObject {
             print("downloading image..")
         }
     }
-        
+    
     func downloadImages() {
         URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isLoading = false
-            }  receiveValue: { [weak self] returnedimage in
-                guard
-                        let self = self,
-                        let img = returnedimage else { return }
-                 self.image = returnedimage
+            } receiveValue: { [weak self] returnedimage in
+                guard let self = self, let img = returnedimage else { return }
+                self.image = returnedimage
                 self.cache.add(key: self.imgKey, image: img)
             }
             .store(in: &cancellables)
-         }
     }
+}
+

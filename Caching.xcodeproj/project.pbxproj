@@ -143,6 +143,7 @@
 		491FC7ED29D2E88D00E2D6B2 /* CachingTests */ = {
 			isa = PBXGroup;
 			children = (
+				49E8E3D229D6FE4C0085C50D /* New Group */,
 				49F13E2629D6F1F900322CD1 /* ViewModels */,
 				49F13E2129D6EEAD00322CD1 /* Utilities */,
 				491FC7EE29D2E88D00E2D6B2 /* CachingTests.swift */,
@@ -153,10 +154,25 @@
 		491FC7F729D2E88D00E2D6B2 /* CachingUITests */ = {
 			isa = PBXGroup;
 			children = (
+				49E8E3D329D6FE550085C50D /* Views */,
 				491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */,
 				491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */,
 			);
 			path = CachingUITests;
+			sourceTree = "<group>";
+		};
+		49E8E3D229D6FE4C0085C50D /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		49E8E3D329D6FE550085C50D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		49F13D9E29D33C4000322CD1 /* Views */ = {
