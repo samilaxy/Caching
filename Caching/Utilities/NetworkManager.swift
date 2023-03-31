@@ -17,7 +17,7 @@ class NetworkManager {
         
         return  URLSession.shared.dataTaskPublisher(for: request)
             .map({$0.data})
-            .decode(type: [UnsplashImage].self, decoder : JSONDecoder())
+            .decode(type: [UnsplashImage].self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }

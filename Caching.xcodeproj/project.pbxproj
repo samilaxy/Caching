@@ -23,6 +23,10 @@
 		49F13DE529D4B4A600322CD1 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DE429D4B4A600322CD1 /* ImageCache.swift */; };
 		49F13E1D29D5E9A700322CD1 /* ImgFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */; };
 		49F13E2029D6E48D00322CD1 /* ImageViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E1F29D6E48D00322CD1 /* ImageViewStateManager.swift */; };
+		49F13E2329D6EF5D00322CD1 /* NetworkManagerUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2229D6EF5D00322CD1 /* NetworkManagerUnitTest.swift */; };
+		49F13E2529D6F16C00322CD1 /* CacheManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2429D6F16C00322CD1 /* CacheManagerTest.swift */; };
+		49F13E2829D6F2A400322CD1 /* ViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2729D6F2A300322CD1 /* ViewModelTest.swift */; };
+		49F13E2A29D6F2FB00322CD1 /* ImageLoaderVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2929D6F2FB00322CD1 /* ImageLoaderVMTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		49F13DE429D4B4A600322CD1 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgFileManager.swift; sourceTree = "<group>"; };
 		49F13E1F29D6E48D00322CD1 /* ImageViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewStateManager.swift; sourceTree = "<group>"; };
+		49F13E2229D6EF5D00322CD1 /* NetworkManagerUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerUnitTest.swift; sourceTree = "<group>"; };
+		49F13E2429D6F16C00322CD1 /* CacheManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTest.swift; sourceTree = "<group>"; };
+		49F13E2729D6F2A300322CD1 /* ViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTest.swift; sourceTree = "<group>"; };
+		49F13E2929D6F2FB00322CD1 /* ImageLoaderVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderVMTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +143,9 @@
 		491FC7ED29D2E88D00E2D6B2 /* CachingTests */ = {
 			isa = PBXGroup;
 			children = (
+				49E8E3D229D6FE4C0085C50D /* New Group */,
+				49F13E2629D6F1F900322CD1 /* ViewModels */,
+				49F13E2129D6EEAD00322CD1 /* Utilities */,
 				491FC7EE29D2E88D00E2D6B2 /* CachingTests.swift */,
 			);
 			path = CachingTests;
@@ -143,10 +154,25 @@
 		491FC7F729D2E88D00E2D6B2 /* CachingUITests */ = {
 			isa = PBXGroup;
 			children = (
+				49E8E3D329D6FE550085C50D /* Views */,
 				491FC7F829D2E88D00E2D6B2 /* CachingUITests.swift */,
 				491FC7FA29D2E88D00E2D6B2 /* CachingUITestsLaunchTests.swift */,
 			);
 			path = CachingUITests;
+			sourceTree = "<group>";
+		};
+		49E8E3D229D6FE4C0085C50D /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		49E8E3D329D6FE550085C50D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		49F13D9E29D33C4000322CD1 /* Views */ = {
@@ -184,6 +210,24 @@
 				49F13DE229D4B40500322CD1 /* Models.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		49F13E2129D6EEAD00322CD1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				49F13E2229D6EF5D00322CD1 /* NetworkManagerUnitTest.swift */,
+				49F13E2429D6F16C00322CD1 /* CacheManagerTest.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		49F13E2629D6F1F900322CD1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				49F13E2729D6F2A300322CD1 /* ViewModelTest.swift */,
+				49F13E2929D6F2FB00322CD1 /* ImageLoaderVMTest.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,7 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F13E2329D6EF5D00322CD1 /* NetworkManagerUnitTest.swift in Sources */,
 				491FC7EF29D2E88D00E2D6B2 /* CachingTests.swift in Sources */,
+				49F13E2829D6F2A400322CD1 /* ViewModelTest.swift in Sources */,
+				49F13E2A29D6F2FB00322CD1 /* ImageLoaderVMTest.swift in Sources */,
+				49F13E2529D6F16C00322CD1 /* CacheManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
