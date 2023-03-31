@@ -7,39 +7,49 @@
 
 import Foundation
 import Combine
-import UIKit
+import SwiftUI
 
 class ImageLoaderVM: ObservableObject {
+    
     @Published var image: UIImage?
-    
+    @Published var isLoading = true
     private let url: URL
-    private var cancellable: AnyCancellable?
-    let cache = ImageCache.shared
+    var imgKey: String
+    var cancellables = Set<AnyCancellable>()
+    let cache = ImgFileManager.shared
     
-    init(url: URL) {
+    init(url: URL, key: String) {
         self.url = url
-        self.load()
+        self.imgKey = key
+        self.loadImage()
     }
     
-    deinit {
-        cancellable?.cancel()
-    }
-    
-    func load() {
-        if let image = cache["\(url)"] {
-            self.image = image
-            return
+    func loadImage() {
+        if let savedImages  = cache.get(key: imgKey) {
+            image = savedImages
+            isLoading = false
+            print("Getting cache image..")
+        } else {
+            downloadImages()
+            print("downloading image..")
         }
-        
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .handleEvents(receiveOutput: { [weak self] image in
-                if let image = image {
-                    self?.cache["\(String(describing: self?.url))" ] = image
-                }
-            })
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
     }
+        
+    func downloadImages() {
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { UIImage(data: $0.data) }
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.isLoading = false
+            }  receiveValue: { [weak self] returnedimage in
+                guard
+                        let self = self,
+                        let img = returnedimage else { return }
+                       
+                self.image = returnedimage
+                self.cache.add(key: self.imgKey, image: img)
+            }
+            .store(in: &cancellables)
+         }
+    
 }

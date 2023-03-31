@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				49F13DE129D4B3BD00322CD1 /* Models */,
-				49F13DDE29D4B34F00322CD1 /* Helpers */,
+				49F13DDE29D4B34F00322CD1 /* Utilities */,
 				49F13DD929D4ADFD00322CD1 /* View Models */,
 				49F13D9E29D33C4000322CD1 /* Views */,
 				491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */,
@@ -165,14 +165,14 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
-		49F13DDE29D4B34F00322CD1 /* Helpers */ = {
+		49F13DDE29D4B34F00322CD1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				49F13DDF29D4B39200322CD1 /* NetworkManager.swift */,
 				49F13DE429D4B4A600322CD1 /* ImageCache.swift */,
 				49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */,
 			);
-			path = Helpers;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		49F13DE129D4B3BD00322CD1 /* Models */ = {

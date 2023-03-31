@@ -11,9 +11,8 @@ import UIKit
 
 class ViewModel: ObservableObject {
     
-    private let cache = ImageCache.shared
-    private let cacheManager = CacheManager.shared
     @Published var images: [UnsplashImage] = []
+    @Published var isLoading = true
     var networkManager = NetworkManager()
     
     init(dataService: NetworkManager) {
@@ -24,11 +23,11 @@ class ViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     func getImages(){
-        
+        self.isLoading = true
         guard images.isEmpty else { return }
         networkManager.getImages()
             .sink { _ in
-                
+                self.isLoading = false
             }  receiveValue: { [weak self] returnedimages in
                 self?.images = returnedimages
                 self?.saveToChache(images: returnedimages)
@@ -37,11 +36,8 @@ class ViewModel: ObservableObject {
     }
     
     func saveToChache(images: [UnsplashImage]) {
-        var temImage: UIImage? = nil
        
-        for image in images {
-            temImage = UIImage(named: image.urls.regular)
-            CacheManager.shared.addToCache(image: temImage, name: image.id)
-        }
     }
 }
+
+
