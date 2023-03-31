@@ -12,34 +12,40 @@ import Combine
     
         @StateObject var imageLoader: ImageLoaderVM
         
-        init(imageUrl: String) {
-            _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!))
+        init(imageUrl: String, key: String) {
+            _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!, key: key))
         }
         
         var body: some View {
             VStack {
-                Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
-                    .resizable()
-                    .frame(height: 200)
-            }.padding(.all, 4)
+                if imageLoader.isLoading {
+                    ProgressView()
+                } else {
+                    Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                 }
+            }
+            .frame(height: 200)
+            .padding(.all, 4)
         }
     }
     
     struct ImageDetailView: View {
         @StateObject var imageLoader: ImageLoaderVM
         
-        init(imageUrl: String) {
-            _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!))
+        init(imageUrl: String, key: String) {
+            _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!, key: key))
         }
         
         var body: some View {
+            VStack {
+                Spacer()
             Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .frame(height: 400)
                 .padding()
-                .onAppear {
-                    imageLoader.load()
+                Spacer()
                 }
         }
     }

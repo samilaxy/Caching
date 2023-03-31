@@ -11,7 +11,7 @@ import Combine
 class NetworkManager {
     
     func getImages() -> AnyPublisher<[UnsplashImage], Error> {
-        var request =  URLRequest(url: URL(string: "https://api.unsplash.com/photos/random?count=10")!)
+        var request =  URLRequest(url: URL(string: "https://api.unsplash.com/photos/random?count=100")!)
         let apiKey = "dixtqIxMkkn0gBKvye_yGfKHH3dUxemwT_QwBFwYW04"
         request.setValue("Client-ID \(apiKey)", forHTTPHeaderField: "Authorization")
         

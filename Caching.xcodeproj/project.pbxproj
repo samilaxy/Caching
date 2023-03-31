@@ -21,6 +21,7 @@
 		49F13DE029D4B39200322CD1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DDF29D4B39200322CD1 /* NetworkManager.swift */; };
 		49F13DE329D4B40500322CD1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DE229D4B40500322CD1 /* Models.swift */; };
 		49F13DE529D4B4A600322CD1 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DE429D4B4A600322CD1 /* ImageCache.swift */; };
+		49F13E1D29D5E9A700322CD1 /* ImgFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		49F13DDF29D4B39200322CD1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		49F13DE229D4B40500322CD1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		49F13DE429D4B4A600322CD1 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				49F13DE129D4B3BD00322CD1 /* Models */,
-				49F13DDE29D4B34F00322CD1 /* Helpers */,
+				49F13DDE29D4B34F00322CD1 /* Utilities */,
 				49F13DD929D4ADFD00322CD1 /* View Models */,
 				49F13D9E29D33C4000322CD1 /* Views */,
 				491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */,
@@ -163,13 +165,14 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
-		49F13DDE29D4B34F00322CD1 /* Helpers */ = {
+		49F13DDE29D4B34F00322CD1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				49F13DDF29D4B39200322CD1 /* NetworkManager.swift */,
 				49F13DE429D4B4A600322CD1 /* ImageCache.swift */,
+				49F13E1C29D5E9A700322CD1 /* ImgFileManager.swift */,
 			);
-			path = Helpers;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		49F13DE129D4B3BD00322CD1 /* Models */ = {
@@ -341,6 +344,7 @@
 				49F13DE329D4B40500322CD1 /* Models.swift in Sources */,
 				49F13DE029D4B39200322CD1 /* NetworkManager.swift in Sources */,
 				49F13DA029D33C5A00322CD1 /* ImageGridView.swift in Sources */,
+				49F13E1D29D5E9A700322CD1 /* ImgFileManager.swift in Sources */,
 				491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */,
 				491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */,
 			);
