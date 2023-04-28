@@ -11,8 +11,12 @@ import Combine
 class NetworkManager {
     
     func getImages() -> AnyPublisher<[UnsplashImage], Error> {
-        var request =  URLRequest(url: URL(string: "https://api.unsplash.com/photos/random?count=500")!)
-        let apiKey = "dixtqIxMkkn0gBKvye_yGfKHH3dUxemwT_QwBFwYW04"
+
+        guard let requestURL =   URL(string: fetchSecret(secret: .BaseURL)) else {
+            return Fail(error: URLError.wrongURL).eraseToAnyPublisher()
+        }
+        var request = URLRequest(url: requestURL)
+        let apiKey = fetchSecret(secret: .ApiKey)
         request.setValue("Client-ID \(apiKey)", forHTTPHeaderField: "Authorization")
         
         return  URLSession.shared.dataTaskPublisher(for: request)
@@ -21,4 +25,20 @@ class NetworkManager {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
+    func fetchSecret(secret: Secrets) -> String{
+        let fetchedLink = Bundle.main.object(forInfoDictionaryKey: secret.rawValue) as? String
+        guard let secretURL = fetchedLink, !(secretURL.isEmpty ) else {
+            fatalError("URL is empty")
+        }
+        return secret == .BaseURL ? "https://\(secretURL)": secretURL
+    }
+    enum Secrets: String {
+        case BaseURL
+        case ApiKey
+    }
+    enum URLError: Error {
+        case wrongURL
+    }
 }
+
+

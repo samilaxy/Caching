@@ -27,6 +27,7 @@
 		49F13E2529D6F16C00322CD1 /* CacheManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2429D6F16C00322CD1 /* CacheManagerTest.swift */; };
 		49F13E2829D6F2A400322CD1 /* ViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2729D6F2A300322CD1 /* ViewModelTest.swift */; };
 		49F13E2A29D6F2FB00322CD1 /* ImageLoaderVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F13E2929D6F2FB00322CD1 /* ImageLoaderVMTest.swift */; };
+		EB4C7F0829FBDE0700679E0E /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4C7F0729FBDE0700679E0E /* Configurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,9 @@
 		49F13E2429D6F16C00322CD1 /* CacheManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTest.swift; sourceTree = "<group>"; };
 		49F13E2729D6F2A300322CD1 /* ViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTest.swift; sourceTree = "<group>"; };
 		49F13E2929D6F2FB00322CD1 /* ImageLoaderVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderVMTest.swift; sourceTree = "<group>"; };
+		EB4C7F0529FBD5C500679E0E /* ConfigSecret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigSecret.xcconfig; sourceTree = "<group>"; };
+		EB4C7F0629FBD74D00679E0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EB4C7F0729FBDE0700679E0E /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 		491FC7DC29D2E88A00E2D6B2 /* Caching */ = {
 			isa = PBXGroup;
 			children = (
+				EB4C7F0629FBD74D00679E0E /* Info.plist */,
 				49F13DE129D4B3BD00322CD1 /* Models */,
 				49F13DDE29D4B34F00322CD1 /* Utilities */,
 				49F13DD929D4ADFD00322CD1 /* View Models */,
@@ -128,6 +133,8 @@
 				491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */,
 				491FC7E129D2E88C00E2D6B2 /* Assets.xcassets */,
 				491FC7E329D2E88C00E2D6B2 /* Preview Content */,
+				EB4C7F0529FBD5C500679E0E /* ConfigSecret.xcconfig */,
+				EB4C7F0729FBDE0700679E0E /* Configurator.swift */,
 			);
 			path = Caching;
 			sourceTree = "<group>";
@@ -381,6 +388,7 @@
 				49F13DDD29D4B2B600322CD1 /* ImageLoaderVM.swift in Sources */,
 				49F13DD829D4411900322CD1 /* ImageView.swift in Sources */,
 				49F13DE529D4B4A600322CD1 /* ImageCache.swift in Sources */,
+				EB4C7F0829FBDE0700679E0E /* Configurator.swift in Sources */,
 				49F13DE329D4B40500322CD1 /* Models.swift in Sources */,
 				49F13E2029D6E48D00322CD1 /* ImageViewStateManager.swift in Sources */,
 				49F13DE029D4B39200322CD1 /* NetworkManager.swift in Sources */,
@@ -430,6 +438,7 @@
 /* Begin XCBuildConfiguration section */
 		491FC7FC29D2E88D00E2D6B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB4C7F0529FBD5C500679E0E /* ConfigSecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -490,6 +499,7 @@
 		};
 		491FC7FD29D2E88D00E2D6B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB4C7F0529FBD5C500679E0E /* ConfigSecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -553,6 +563,7 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Caching/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -582,6 +593,7 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Caching/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -5,9 +5,7 @@
 //  Created by Noye Samuel on 29/03/2023.
 //
 
-import Foundation
 import Combine
-import UIKit
 
 class ViewModel: ObservableObject {
     
@@ -18,6 +16,7 @@ class ViewModel: ObservableObject {
     init(dataService: NetworkManager) {
         self.networkManager = dataService
         self.getImages()
+        print(networkManager.fetchSecret(secret: .ApiKey))
     }
     
     var cancellables = Set<AnyCancellable>()
