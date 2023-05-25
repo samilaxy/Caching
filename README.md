@@ -13,4 +13,4 @@ Create a mobile application.
 
 4.  Use a Dependency Injection library in your development.
 
-5.  Save the state of the app when it closes and restore it when it’s reopened.
+//5.  Save the state of the app when it closes and restore it when it’s reopened.
