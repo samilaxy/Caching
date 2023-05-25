@@ -12,5 +12,4 @@ Create a mobile application.
 3.  Create your own class for displaying and caching (no use of Dbs or Shared Preference or UserDefaults) the images being showed (no external libraries). Only load images from the api if there are no images in the cache.
 
 4.  Use a Dependency Injection library in your development.
-
-//5.  Save the state of the app when it closes and restore it when it’s reopened.
+5.  Save the state of the app when it closes and restore it when it’s reopened.
