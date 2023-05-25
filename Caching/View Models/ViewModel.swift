@@ -32,5 +32,6 @@ class ViewModel: ObservableObject {
                 self?.images = returnedimages
             }
             .store(in: &cancellables)
+        print("request:::", images)
     }
 }
