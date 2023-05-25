@@ -31,31 +31,14 @@ class CacheManagerTest: XCTestCase {
         sut.add(key: key, image: image)
         
             // Then
-        XCTAssertNotNil(sut.imageCache.object(forKey: key as NSString))
-        XCTAssertEqual(sut.imageCache.object(forKey: key as NSString), image)
+        XCTAssertNotNil(sut.get(key: key))
+        XCTAssertEqual(sut.get(key: key), image)
     }
-    
-    func testGetImageFromCache() {
-            // Given
-        let key = "test_image"
-        let image = UIImage(systemName: "photo")!
-        sut.imageCache.setObject(image, forKey: key as NSString)
-        
-            // When
-        let result = sut.get(key: key)
-        
-            // Then
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result, image)
-    }
-    
     func testGetMissingImageFromCache() {
             // Given
         let key = "missing_image"
-        
             // When
         let result = sut.get(key: key)
-        
             // Then
         XCTAssertNil(result)
     }

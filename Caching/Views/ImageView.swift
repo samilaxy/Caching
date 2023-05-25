@@ -36,23 +36,4 @@ import Combine
             }
         }
     }
-    
-    struct ImageDetailView: View {
-        @StateObject var imageLoader: ImageLoaderVM
-        
-        init(imageUrl: String, key: String) {
-            _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!, key: key))
-        }
-        
-        var body: some View {
-            VStack {
-                Spacer()
-            Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .frame(height: 400)
-                .padding()
-                Spacer()
-                }
-        }
-    }
+

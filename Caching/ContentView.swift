@@ -10,10 +10,10 @@ import Combine
 
 struct ContentView: View {
    
-    static let dataservice = NetworkManager()
+ let viewModel = ViewModel(dataService: NetworkManager() )
     
     var body: some View {
-        ImageGridView(dataService: ContentView.dataservice)
+        ImageGridView(viewModel: viewModel)
     }
 }
 
