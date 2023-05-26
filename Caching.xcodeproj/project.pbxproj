@@ -19,6 +19,7 @@
 		497C4F042A20AFD100E7850C /* ImageEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F002A20AFD000E7850C /* ImageEditView.swift */; };
 		497C4F052A20AFD100E7850C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F012A20AFD000E7850C /* ImageView.swift */; };
 		497C4F082A20B0AF00E7850C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F072A20B0AF00E7850C /* Models.swift */; };
+		497C4F0B2A20B17800E7850C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F0A2A20B17800E7850C /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		497C4F002A20AFD000E7850C /* ImageEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditView.swift; sourceTree = "<group>"; };
 		497C4F012A20AFD000E7850C /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		497C4F072A20B0AF00E7850C /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		497C4F0A2A20B17800E7850C /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		491FC7D129D2E88A00E2D6B2 = {
 			isa = PBXGroup;
 			children = (
+				497C4F092A20B16500E7850C /* Utilities */,
 				497C4F062A20B0AF00E7850C /* Models */,
 				497C4EFD2A20AFD000E7850C /* Views */,
 				491FC7DC29D2E88A00E2D6B2 /* Caching */,
@@ -156,6 +159,14 @@
 				497C4F072A20B0AF00E7850C /* Models.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		497C4F092A20B16500E7850C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				497C4F0A2A20B17800E7850C /* NetworkManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +308,7 @@
 				497C4F042A20AFD100E7850C /* ImageEditView.swift in Sources */,
 				491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */,
 				491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */,
+				497C4F0B2A20B17800E7850C /* NetworkManager.swift in Sources */,
 				497C4F032A20AFD100E7850C /* ImageGridView.swift in Sources */,
 				497C4F022A20AFD100E7850C /* ImageDetailView.swift in Sources */,
 				497C4F082A20B0AF00E7850C /* Models.swift in Sources */,
