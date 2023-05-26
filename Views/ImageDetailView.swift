@@ -25,9 +25,7 @@ struct ImageDetailView: View {
                 .padding()
             Spacer()
         }.navigationDestination(isPresented: $route) {
-            var imgUitility = ImageUtilities()
-                imageLoader.image.map {
-                    ImageEditView(image: imgUitility.gaussianBlur(image: $0, blurRadius: 20.0)) }
+                imageLoader.image.map {ImageEditView(image: $0) }
             }.navigationBarItems(trailing: Button(action: {
                 route = true
             }){
