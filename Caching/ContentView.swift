@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
-import Combine
 
 struct ContentView: View {
-   
- let viewModel = ViewModel(dataService: NetworkManager() )
-    
     var body: some View {
-        ImageGridView(viewModel: viewModel)
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundColor(.accentColor)
+            Text("Hello, world!")
+        }
+        .padding()
     }
 }
 
