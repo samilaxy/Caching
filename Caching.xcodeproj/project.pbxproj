@@ -26,6 +26,10 @@
 		497C4F132A20B31800E7850C /* ImageUtitlities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F122A20B31800E7850C /* ImageUtitlities.swift */; };
 		497C4F172A20B42B00E7850C /* ImageLoaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F152A20B42A00E7850C /* ImageLoaderVM.swift */; };
 		497C4F182A20B42B00E7850C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F162A20B42A00E7850C /* ViewModel.swift */; };
+		497C4F1F2A20B95B00E7850C /* CacheManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F1A2A20B95B00E7850C /* CacheManagerTest.swift */; };
+		497C4F202A20B95B00E7850C /* NetworkManagerUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F1B2A20B95B00E7850C /* NetworkManagerUnitTest.swift */; };
+		497C4F212A20B95B00E7850C /* ImageLoaderVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F1D2A20B95B00E7850C /* ImageLoaderVMTest.swift */; };
+		497C4F222A20B95B00E7850C /* ViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F1E2A20B95B00E7850C /* ViewModelTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,10 @@
 		497C4F122A20B31800E7850C /* ImageUtitlities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtitlities.swift; sourceTree = "<group>"; };
 		497C4F152A20B42A00E7850C /* ImageLoaderVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderVM.swift; sourceTree = "<group>"; };
 		497C4F162A20B42A00E7850C /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		497C4F1A2A20B95B00E7850C /* CacheManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManagerTest.swift; sourceTree = "<group>"; };
+		497C4F1B2A20B95B00E7850C /* NetworkManagerUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerUnitTest.swift; sourceTree = "<group>"; };
+		497C4F1D2A20B95B00E7850C /* ImageLoaderVMTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderVMTest.swift; sourceTree = "<group>"; };
+		497C4F1E2A20B95B00E7850C /* ViewModelTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +149,8 @@
 		491FC7ED29D2E88D00E2D6B2 /* CachingTests */ = {
 			isa = PBXGroup;
 			children = (
+				497C4F192A20B95B00E7850C /* Utilities */,
+				497C4F1C2A20B95B00E7850C /* ViewModels */,
 				491FC7EE29D2E88D00E2D6B2 /* CachingTests.swift */,
 			);
 			path = CachingTests;
@@ -193,6 +203,24 @@
 				497C4F162A20B42A00E7850C /* ViewModel.swift */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		497C4F192A20B95B00E7850C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				497C4F1A2A20B95B00E7850C /* CacheManagerTest.swift */,
+				497C4F1B2A20B95B00E7850C /* NetworkManagerUnitTest.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		497C4F1C2A20B95B00E7850C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				497C4F1D2A20B95B00E7850C /* ImageLoaderVMTest.swift */,
+				497C4F1E2A20B95B00E7850C /* ViewModelTest.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,7 +379,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497C4F1F2A20B95B00E7850C /* CacheManagerTest.swift in Sources */,
+				497C4F222A20B95B00E7850C /* ViewModelTest.swift in Sources */,
 				491FC7EF29D2E88D00E2D6B2 /* CachingTests.swift in Sources */,
+				497C4F202A20B95B00E7850C /* NetworkManagerUnitTest.swift in Sources */,
+				497C4F212A20B95B00E7850C /* ImageLoaderVMTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
