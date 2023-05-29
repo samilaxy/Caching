@@ -17,8 +17,8 @@ class PersistenceController {
         UIImageTransformer.register()
         container = NSPersistentContainer(name: "ImageData")
         container.loadPersistentStores { description, error in
-            if let error = error {
-               // fatalError("Failed to initialize Core Data stack: \(error)")
+            if error != nil {
+                fatalError("Failed to initialize Core Data stack: \(String(describing: error))")
             }
         }
     }

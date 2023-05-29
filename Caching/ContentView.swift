@@ -10,7 +10,7 @@ import Combine
 
 struct ContentView: View {
     
-    let viewModel = ViewModel(dataService: NetworkManager())
+    let viewModel = ViewModel()
     @State var selection = 0
     
     var body: some View {
