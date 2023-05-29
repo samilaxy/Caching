@@ -29,16 +29,13 @@ struct SavedImageView: View {
                         .padding()
                 }
                 
-                Button(action: {
-                    showBlurredImage.toggle()
-                }) {
+                Toggle(isOn: $showBlurredImage) {
                     Text(showBlurredImage ? "Show Original" : "Show Blurred")
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        .foregroundColor(.primary)
                 }
+                .toggleStyle(SwitchToggleStyle(tint: .blue))
+                .padding()
             }
             .padding()
             .navigationBarTitle("Image", displayMode: .inline)
@@ -51,66 +48,3 @@ struct SavedImageView: View {
     }
 }
 
-
-
-
-
-    //struct SavedImageView: View {
-    //        @State var image: ImageData
-    //        @Environment(\.presentationMode) var presentationMode
-    //        @State var isBlurred = false
-    //        var imgUitility = ImageUtilities()
-    //    @State var originalImg: UIImage = (image.blur ?? UIImage(systemName: "photo"))
-    //        var body: some View {
-    //            NavigationView {
-    //                VStack {
-    //
-    //                        Spacer()
-    //                    Image(uiImage: originalImg )
-    //                            .resizable()
-    //                            .clipShape(RoundedRectangle(cornerRadius: 15))
-    //                            .frame(height: 400)
-    //                            .padding()
-    //
-    //                        Spacer()
-    //
-    //                        HStack(spacing: 30) {
-    //                            Button("Blur") {
-    //                                isBlurred = true
-    //
-    //                                DispatchQueue.global().async {
-    //
-    //                                    DispatchQueue.main.async {
-    //                                        originalImg = image.blur as! UIImage
-    //                                        isBlurred = false
-    //                                    }
-    //                                }
-    //                            }
-    //                            Button("Original") {
-    //                                isBlurred = true
-    //                                DispatchQueue.global().async {
-    //                                   //originalImg
-    //                                    DispatchQueue.main.async {
-    //                                        isBlurred = false
-    //                                        originalImg = image.img!
-    //                                    }
-    //                                }
-    //                            }
-    //                        }
-    //                    }
-    //                .navigationBarTitle("Image", displayMode: .inline)
-    //                .navigationBarItems(trailing: Button(action: {
-    //                    presentationMode.wrappedValue.dismiss()
-    //                }) {
-    //                    Image(systemName: "xmark")
-    //                })
-    //            }
-    //        }
-    //
-    //    }
-
-    //struct SavedImageView_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        SavedImageView(image: UIImage(systemName: "photo")!)
-    //    }
-    //}
