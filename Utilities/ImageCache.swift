@@ -28,3 +28,4 @@ class CacheManager {
        return  imageCache.object(forKey: key as NSString)
     }
 }
+

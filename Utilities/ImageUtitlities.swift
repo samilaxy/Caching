@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 import CoreImage
+import Photos
 
-class ImageUtilities {
-    
+class ImageUtilities: ObservableObject {
+    var images: [UIImage] = []
     func gaussianBlur(image: UIImage, blurRadius: CGFloat) -> UIImage {
         guard let ciImage =  CIImage(image: image), let ciFilter = CIFilter(name: "CIGaussianBlur") else {
             return image
@@ -25,6 +26,27 @@ class ImageUtilities {
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
             return image
         }
+        return UIImage(cgImage: cgImage)
+    }
+    
+    func removeBlurEffect(image: UIImage) -> UIImage {
+            // Reverses the effect of the gaussianBlur function by applying a blank CIFilter
+        guard let ciImage = CIImage(image: image),
+              let ciFilter = CIFilter(name: "CIAffineTransform") else {
+            return image
+        }
+        
+        ciFilter.setValue(ciImage, forKey: kCIInputImageKey)
+        
+        guard let outputImage = ciFilter.outputImage else {
+            return image
+        }
+        
+        let context = CIContext(options: nil)
+        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
+            return image
+        }
+        
         return UIImage(cgImage: cgImage)
     }
 }
