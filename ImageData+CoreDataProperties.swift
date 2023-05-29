@@ -20,7 +20,7 @@ extension ImageData {
     @NSManaged public var img: UIImage?
     @NSManaged public var createAt: Date?
     @NSManaged public var blur: NSObject?
-
+    
 }
 
 extension ImageData : Identifiable {
