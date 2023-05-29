@@ -29,24 +29,5 @@ class ImageUtilities: ObservableObject {
         return UIImage(cgImage: cgImage)
     }
     
-    func removeBlurEffect(image: UIImage) -> UIImage {
-            // Reverses the effect of the gaussianBlur function by applying a blank CIFilter
-        guard let ciImage = CIImage(image: image),
-              let ciFilter = CIFilter(name: "CIAffineTransform") else {
-            return image
-        }
-        
-        ciFilter.setValue(ciImage, forKey: kCIInputImageKey)
-        
-        guard let outputImage = ciFilter.outputImage else {
-            return image
-        }
-        
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
-            return image
-        }
-        
-        return UIImage(cgImage: cgImage)
-    }
+    
 }
