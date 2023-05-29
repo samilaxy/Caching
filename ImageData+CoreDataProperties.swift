@@ -21,10 +21,6 @@ extension ImageData {
     @NSManaged public var createAt: Date?
     @NSManaged public var blur: NSObject?
     
-    convenience init(context: NSManagedObjectContext) {
-        let entity = NSEntityDescription.entity(forEntityName: "ImageData", in: context)!
-        self.init(entity: entity, insertInto: context)
-    }
 }
 
 extension ImageData : Identifiable {
