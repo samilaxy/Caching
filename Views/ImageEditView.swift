@@ -10,6 +10,7 @@ import SwiftUI
 struct ImageEditView: View {
     @State var image: UIImage = UIImage(systemName: "photo")!
     @State var isProgress = false
+    @State var isBlur = false
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     var imgUitility = ImageUtilities()
@@ -28,24 +29,29 @@ struct ImageEditView: View {
                     Spacer()
                     
                     HStack(spacing: 30) {
-                        Button("Blur") {
-                            isProgress = true
-                            originalImg = image
-                            DispatchQueue.global().async {
-                                let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 10.0)
-                                
-                                DispatchQueue.main.async {
-                                    image = blurredImage
-                                    isProgress = false
+                        if !isBlur {
+                            Button("Blur") {
+                                isProgress = true
+                                originalImg = image
+                                DispatchQueue.global().async {
+                                    let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 10.0)
+                                    
+                                    DispatchQueue.main.async {
+                                        image = blurredImage
+                                        isProgress = false
+                                        isBlur = true
+                                    }
                                 }
                             }
-                        }
-                        Button("Save") {
-                            isProgress = true
-                            DispatchQueue.global().async {
-                                saveImage()
-                                DispatchQueue.main.async {
-                                    isProgress = false
+                        } else {
+                            Button("Save") {
+                                isProgress = true
+                                DispatchQueue.global().async {
+                                    saveImage()
+                                    DispatchQueue.main.async {
+                                        isProgress = false
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
                                 }
                             }
                         }
@@ -84,11 +90,3 @@ struct ImageEditView_Previews: PreviewProvider {
     }
 }
 
-struct MyProgressViewStyle: ProgressViewStyle {
-    var color: Color
-    
-    func makeBody(configuration: Configuration) -> some View {
-        ProgressView(configuration)
-            .accentColor(color)
-    }
-}
