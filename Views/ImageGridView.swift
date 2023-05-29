@@ -39,7 +39,7 @@ struct ImageGridView: View {
 }
 
 struct ImageGridView_Previews: PreviewProvider {
-    static let viewModel = ViewModel(dataService: NetworkManager())
+    static let viewModel = ViewModel()
     static var previews: some View {
         ImageGridView(viewModel: viewModel)
     }

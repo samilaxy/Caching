@@ -15,8 +15,7 @@ class ViewModel: ObservableObject {
     @Published var isLoading = true
     var networkManager = NetworkManager()
     
-    init(dataService: NetworkManager) {
-        self.networkManager = dataService
+    init() {
         self.getImages()
     }
     
