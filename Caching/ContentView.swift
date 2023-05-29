@@ -26,7 +26,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            ImageGridView(viewModel: viewModel)
+            SavedImagesView()
                 .navigationTitle("Saved")
                 .tabItem {
                     Image(systemName: "text.below.photo.fill")

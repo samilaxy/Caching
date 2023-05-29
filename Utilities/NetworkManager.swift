@@ -14,7 +14,7 @@ class NetworkManager {
         
         let apiKey = "dixtqIxMkkn0gBKvye_yGfKHH3dUxemwT_QwBFwYW04"
         
-        guard let url = URL(string: "https://api.unsplash.com/photos/random?count=20")  else {
+        guard let url = URL(string: "https://api.unsplash.com/photos/random?count=5")  else {
             return Fail(error: .badUrl).eraseToAnyPublisher()
         }
         

@@ -11,14 +11,14 @@ struct ImageEditView: View {
     @State var image: UIImage = UIImage(systemName: "photo")!
     @State var isProgress = false
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var moc
     var imgUitility = ImageUtilities()
-    
+    @State var originalImg: UIImage = UIImage(systemName: "photo")!
     var body: some View {
         NavigationView {
             VStack {
-                Spacer()
-                
                 if !isProgress {
+                    Spacer()
                     Image(uiImage: image)
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: 15))
@@ -30,9 +30,9 @@ struct ImageEditView: View {
                     HStack(spacing: 30) {
                         Button("Blur") {
                             isProgress = true
-                            
+                            originalImg = image
                             DispatchQueue.global().async {
-                                let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 20.0)
+                                let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 10.0)
                                 
                                 DispatchQueue.main.async {
                                     image = blurredImage
@@ -42,9 +42,8 @@ struct ImageEditView: View {
                         }
                         Button("Save") {
                             isProgress = true
-                            
                             DispatchQueue.global().async {
-
+                                saveImage()
                                 DispatchQueue.main.async {
                                     isProgress = false
                                 }
@@ -53,7 +52,6 @@ struct ImageEditView: View {
                     }
                 } else {
                     ProgressView()
-                        .progressViewStyle(MyProgressViewStyle(color: .red))
                 }
             }
             .navigationBarTitle("Edit Image", displayMode: .inline)
@@ -62,6 +60,21 @@ struct ImageEditView: View {
             }) {
                 Image(systemName: "xmark")
             })
+        }
+    }
+    func saveImage() {
+            // Create a new Image entity
+        let newImage = ImageData(context: moc)
+        newImage.img = originalImg
+        newImage.blur = image
+        newImage.createAt = Date()
+        
+        do {
+            try self.moc.save() // Save the changes to Core Data
+            print("image saved..")
+        } catch {
+                // Handle the error
+            print("Failed to save image: \(error)")
         }
     }
 }
