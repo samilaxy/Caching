@@ -34,7 +34,7 @@ struct ImageEditView: View {
                                 isProgress = true
                                 originalImg = image
                                 DispatchQueue.global().async {
-                                    let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 10.0)
+                                    let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 1.0)
                                     
                                     DispatchQueue.main.async {
                                         image = blurredImage

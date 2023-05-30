@@ -17,7 +17,7 @@ class ImageUtilities: ObservableObject {
             return image
         }
             /// crop out empty edges
-        ciImage = ciImage.cropped(to: ciImage.extent.insetBy(dx: 4 * blurRadius, dy: 4 * blurRadius))
+       // ciImage = ciImage.cropped(to: ciImage.extent.insetBy(dx: 4 * blurRadius, dy: 4 * blurRadius))
         
         ciFilter.setValue(blurRadius, forKey: kCIInputRadiusKey)
         ciFilter.setValue(ciImage, forKey: kCIInputImageKey)
