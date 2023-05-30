@@ -16,6 +16,8 @@ class ImageUtilities: ObservableObject {
         guard var ciImage =  CIImage(image: image), let ciFilter = CIFilter(name: "CIGaussianBlur") else {
             return image
         }
+            /// crop out empty edges
+        ciImage = ciImage.cropped(to: ciImage.extent.insetBy(dx: 4 * blurRadius, dy: 4 * blurRadius))
         
         ciFilter.setValue(blurRadius, forKey: kCIInputRadiusKey)
         ciFilter.setValue(ciImage, forKey: kCIInputImageKey)
@@ -24,12 +26,10 @@ class ImageUtilities: ObservableObject {
         
         let context = CIContext(options: nil)
         
-        guard var cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
+        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
             return image
         }
-            /// crop out empty edges
-        ciImage = ciImage.cropped(to: ciImage.extent.insetBy(dx: 4 * blurRadius, dy: 4 * blurRadius))
-        
+
         return UIImage(cgImage: cgImage)
     }
     
