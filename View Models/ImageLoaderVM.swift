@@ -26,7 +26,8 @@ class ImageLoaderVM: ObservableObject {
     
     func loadImage() {
         if let savedImages = cache.get(key: imgKey) {
-            image = savedImages
+          //  image = savedImages
+            downloadImages()
             isLoading = false
         } else {
             downloadImages()
@@ -42,8 +43,8 @@ class ImageLoaderVM: ObservableObject {
                 self.isLoading = false
             } receiveValue: { [weak self] returnedimage in
                 guard let self = self, let img = returnedimage else { return }
-              //  self.image = returnedimage
-                self.cache.add(key: self.imgKey, image: img)
+                self.image = returnedimage
+              //  self.cache.add(key: self.imgKey, image: img)
             }
             .store(in: &cancellables)
     }

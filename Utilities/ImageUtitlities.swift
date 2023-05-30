@@ -13,19 +13,23 @@ import Photos
 class ImageUtilities: ObservableObject {
     var images: [UIImage] = []
     func gaussianBlur(image: UIImage, blurRadius: CGFloat) -> UIImage {
-        guard let ciImage =  CIImage(image: image), let ciFilter = CIFilter(name: "CIGaussianBlur") else {
+        guard var ciImage =  CIImage(image: image), let ciFilter = CIFilter(name: "CIGaussianBlur") else {
             return image
         }
         
         ciFilter.setValue(blurRadius, forKey: kCIInputRadiusKey)
         ciFilter.setValue(ciImage, forKey: kCIInputImageKey)
+        
         let outputImage = ciImage.applyingGaussianBlur(sigma: blurRadius)
         
         let context = CIContext(options: nil)
         
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
+        guard var cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
             return image
         }
+            /// crop out empty edges
+        ciImage = ciImage.cropped(to: ciImage.extent.insetBy(dx: 4 * blurRadius, dy: 4 * blurRadius))
+        
         return UIImage(cgImage: cgImage)
     }
     

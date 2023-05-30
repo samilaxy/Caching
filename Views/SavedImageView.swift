@@ -16,14 +16,14 @@ struct SavedImageView: View {
         NavigationView {
             VStack {
                
-                Image(uiImage: (showBlurredImage ? image.blur : image.img) as! UIImage )
+                Image(uiImage: (showBlurredImage ? image.img : image.blur) as! UIImage )
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .frame(height: 400)
                         .padding()
     
                 Toggle(isOn: $showBlurredImage) {
-                    Text(showBlurredImage ? "Show Original" : "Show Blurred")
+                    Text(showBlurredImage ? "Show Blurred" : "Show Original")
                         .font(.headline)
                         .foregroundColor(.primary)
                 }
