@@ -26,7 +26,7 @@ struct SavedImagesView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: .init(.flexible()), count: gridLayout.count % 3 + 1), alignment: .center, spacing: 10) {
                     ForEach(images, id: \.self) { imageEntity in
-                        if let uiImage = imageEntity.blur {
+                        if let uiImage = imageEntity.img {
                             Image(uiImage: uiImage as! UIImage)
                                 .resizable()
                                 .frame(height: 200)
