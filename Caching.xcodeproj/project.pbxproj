@@ -57,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		490DA12D2A2755C900F05278 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		490DA12E2A27565800F05278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		491FC7DA29D2E88A00E2D6B2 /* Caching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingApp.swift; sourceTree = "<group>"; };
 		491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		491FC7D129D2E88A00E2D6B2 = {
 			isa = PBXGroup;
 			children = (
+				490DA12D2A2755C900F05278 /* Config.xcconfig */,
 				497C4F332A215AAE00E7850C /* ImageData+CoreDataClass.swift */,
 				497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */,
 				497C4F2E2A21094100E7850C /* ImageData.xcdatamodeld */,
@@ -147,6 +150,7 @@
 		491FC7DC29D2E88A00E2D6B2 /* Caching */ = {
 			isa = PBXGroup;
 			children = (
+				490DA12E2A27565800F05278 /* Info.plist */,
 				491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */,
 				491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */,
 				491FC7E129D2E88C00E2D6B2 /* Assets.xcassets */,
@@ -442,6 +446,7 @@
 /* Begin XCBuildConfiguration section */
 		491FC7FC29D2E88D00E2D6B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 490DA12D2A2755C900F05278 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -556,6 +561,7 @@
 		};
 		491FC7FF29D2E88D00E2D6B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 490DA12D2A2755C900F05278 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -565,6 +571,7 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Caching/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -594,6 +601,7 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Caching/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -614,6 +622,7 @@
 		};
 		491FC80229D2E88D00E2D6B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 490DA12D2A2755C900F05278 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -654,6 +663,7 @@
 		};
 		491FC80529D2E88D00E2D6B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 490DA12D2A2755C900F05278 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -11,13 +11,15 @@ import Combine
 class NetworkManager {
     
     func getImages() -> AnyPublisher<[UnsplashImage], APIError> {
-        
-        let apiKey = "dixtqIxMkkn0gBKvye_yGfKHH3dUxemwT_QwBFwYW04"
-        
-        guard let url = URL(string: "https://api.unsplash.com/photos/random?count=20")  else {
+
+        let apiKey = Bundle.main.object(forInfoDictionaryKey: "ApiKey") as! String
+        print("apiKey", apiKey)
+       let baseUrl = Bundle.main.object(forInfoDictionaryKey: "BaseURL") as! String 
+        print("baseUrl", baseUrl)
+        guard let url = URL(string: "https://\(baseUrl)count=20")  else {
             return Fail(error: .badUrl).eraseToAnyPublisher()
         }
-        
+        print("url:",url)
         var request =  URLRequest(url: url)
         
         request.setValue("Client-ID \(apiKey)", forHTTPHeaderField: "Authorization")
