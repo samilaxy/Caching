@@ -13,13 +13,10 @@ class NetworkManager {
     func getImages() -> AnyPublisher<[UnsplashImage], APIError> {
 
         let apiKey = Bundle.main.object(forInfoDictionaryKey: "ApiKey") as! String
-        print("apiKey", apiKey)
-       let baseUrl = Bundle.main.object(forInfoDictionaryKey: "BaseURL") as! String 
-        print("baseUrl", baseUrl)
-        guard let url = URL(string: "https://\(baseUrl)count=20")  else {
+       let baseUrl = Bundle.main.object(forInfoDictionaryKey: "BaseURL") as! String
+        guard let url = URL(string: "https://\(baseUrl)")  else {
             return Fail(error: .badUrl).eraseToAnyPublisher()
         }
-        print("url:",url)
         var request =  URLRequest(url: url)
         
         request.setValue("Client-ID \(apiKey)", forHTTPHeaderField: "Authorization")
