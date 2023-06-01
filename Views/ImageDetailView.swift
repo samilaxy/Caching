@@ -24,9 +24,10 @@ struct ImageDetailView: View {
                 .frame(height: 400)
                 .padding()
             Spacer()
-        }.sheet(isPresented: $route) {
-            imageLoader.image.map {ImageEditView(image: $0) }
-        }.navigationBarItems(trailing: Button(action: {
+        }.navigationDestination(isPresented: $route, destination: {
+            imageLoader.image.map {ImageEditView(image: $0)}
+        })
+        .navigationBarItems(trailing: Button(action: {
                 route = true
             }){
                 Image(systemName: "square.and.pencil")
