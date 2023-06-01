@@ -14,6 +14,7 @@ struct SavedImageView: View {
     @State private var showBlurredImage = true
     @State var index: Int = 0
     @State var selectImg: UIImage?
+    @State private var offset: CGFloat = 0
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
@@ -24,7 +25,18 @@ struct SavedImageView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .frame(height: 400)
                         .padding()
+                        .gesture(
+                            DragGesture()
+                                .onEnded { gesture in
+                                    if gesture.translation.width < 0 {
+                                        handleSwipeRight(num: 1)
+                                    } else if gesture.translation.width > 0 {
+                                        handleSwipeRight(num: -1)
+                                    }
+                                }
+                        )
                 }
+                
                 HStack {
                     Button("back", action: {
                         if index > 0 {
@@ -61,6 +73,17 @@ struct SavedImageView: View {
             })
         }
     }
+    func handleSwipeRight(num: Int) {
+        if index > 0 && num < 0 {
+            index = index + num
+            setImage()
+        } else if (index < images.count - 1) && num > 0 {
+                index = index + num
+                setImage()
+            }
+        }
+        
+
     func setImage() {
         DispatchQueue.main.async {
             if let img = images[index].img {
