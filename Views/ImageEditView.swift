@@ -46,7 +46,7 @@ struct ImageEditView: View {
                         ForEach(buttons, id: \.id) { button in
                             if button.id == 2 {
                                 Button {
-                                    isMenuOpen.toggle()
+                                        isMenuOpen.toggle()
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
@@ -64,7 +64,9 @@ struct ImageEditView: View {
                                 
                             } else {
                                 Button {
-                                    editOption(item: button)
+                                    DispatchQueue.main.async {
+                                        editOption(item: button)
+                                    }
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
@@ -82,10 +84,17 @@ struct ImageEditView: View {
                             }
                         }
                         Spacer()
-                    }.overlay(
-                        menuOverlay
-                    )
-                }
+                    }
+                } .overlay(
+                    menuOverlay
+                        .opacity(isMenuOpen ? 1 : 0)
+                        .animation(.easeInOut)
+                )
+                    
+//                    .overlay(
+//                        menuOverlay
+//                    )
+                
             ////
                 Spacer()
                 
@@ -104,32 +113,37 @@ struct ImageEditView: View {
     @ViewBuilder
     private var menuOverlay: some View {
         if isMenuOpen {
-            GeometryReader { geometry in
-                VStack {
-                        Spacer()
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 10) {
-                                ForEach(menuItems, id: \.id){ item in
-                                   
-                                    Button(action: {
-                                            // Action for menu item 1
-                                        isMenuOpen.toggle()
-                                    }) {
-                                        Text(item.name)
-                                            .font(.system(size: 12))
-                                            .multilineTextAlignment(.leading)
-                                    }
-                                    Divider()
+            Color.black
+                .opacity(0.5)
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    isMenuOpen = false
+                }
+                .overlay(
+                    VStack(alignment: .leading , spacing: 10) {
+                        ForEach(menuItems, id: \.id) { item in
+                            Button(action: {
+                                    // Handle menu item action
+                                isMenuOpen = false
+                                frameImage(item: item)
+                                    // Perform action for menu item
+                            }) {
+                                HStack {
+                                   // Image(item.icon)
+                                    Text(item.name)
                                 }
-                            }.padding(.horizontal, 8)
+                                .foregroundColor(.black)
+                                
+                            }
+                            Divider()
                         }
-                        .padding(.vertical, 8)
-                        .frame(width: 120, height: 120)
+                    }
+                        .frame(width: 200)
+                        .padding()
                         .background(Color.white)
                         .cornerRadius(10)
-                    
-                }
-            }
+                        .padding(30)
+                )
         }
     }
 
@@ -161,9 +175,19 @@ func blurImage() {
         }
     }
 }
-func frameImage() {
-    
-}
+    func frameImage(item: ButtonItem) {
+        switch (item.id) {
+            case 1 :
+                print(item.name)
+            case 2 :
+                print(item.name)
+            case 3 :
+                print(item.name)
+            case 4 :
+                print(item.name)
+            default : break
+        }
+    }
 func zoomImage() {
     
 }
@@ -171,11 +195,13 @@ func rotateImage() {
     
 }
 func revertImage() {
-    
+    image = originalImg
 }
 func editOption(item: ButtonItem) {
     switch (item.id) {
         case 1 :
+            //blur
+            blurImage()
             print(item.name)
         case 2 :
                 //  isMenuOpen = true
@@ -184,10 +210,13 @@ func editOption(item: ButtonItem) {
             }
             print(item.name)
         case 3 :
+            //zoom
+            
             print(item.name)
         case 4 :
             print(item.name)
         case 5 :
+            image = originalImg
             print(item.name)
         case 6 :
             print(item.name)
@@ -207,60 +236,3 @@ struct ButtonItem: Identifiable {
     var icon: String
 }
 
-struct MenuView: View {
-    var body: some View {
-        VStack {
-            Button(action: {
-                    // Action for menu item 1
-            }) {
-                HStack(alignment: .firstTextBaseline){
-                    Text("Black Frame")
-                        .font(.headline)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Image("BlackFrame")
-                        .resizable()
-                        .frame(width: 30, height: 30, alignment: .trailing)
-                }
-            }
-            Divider()
-            Button(action: {
-                    // Action for menu item 2
-            }) {
-                Text("Dark Wood Frame")
-                    .font(.headline)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Image("DarkWoodFrame")
-                    .resizable()
-                    .frame(width: 30, height: 30, alignment: .trailing)
-                
-            }
-            Divider()
-            Button(action: {
-                    // Action for menu item 3
-            }) {
-                Text("Gold Frame")
-                    .font(.headline)
-                Spacer()
-                Image("GoldFrame")
-                    .resizable()
-                    .frame(width: 30, height: 30, alignment: .trailing)
-            }
-            Divider()
-            Button(action: {
-                    // Action for menu item 3
-            }) {
-                Text("Light Wood Frame")
-                    .font(.headline)
-                    .padding()
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Image("LightWoodFrame")
-                    .resizable()
-                    .frame(width: 30, height: 30, alignment: .trailing)
-            }
-        }
-        .padding()
-    }
-}
