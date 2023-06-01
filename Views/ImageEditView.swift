@@ -39,6 +39,12 @@ struct ImageEditView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .frame(height: 400)
                     .padding()
+                    .overlay(
+                        Image("BlackFrame") // Replace "frame" with the name of your frame image asset
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 400)
+                    )
                 ////
                 VStack {
                     HStack(spacing: 10) {
@@ -90,12 +96,7 @@ struct ImageEditView: View {
                         .opacity(isMenuOpen ? 1 : 0)
                         .animation(.easeInOut)
                 )
-                    
-//                    .overlay(
-//                        menuOverlay
-//                    )
-                
-            ////
+                 
                 Spacer()
                 
             } else {
@@ -137,8 +138,7 @@ struct ImageEditView: View {
                             }
                             Divider()
                         }
-                    }
-                        .frame(width: 200)
+                    }.frame(width: 200)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)

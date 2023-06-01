@@ -10,22 +10,44 @@ import SwiftUI
 
 struct SavedImageView: View {
     @Binding var image: ImageData
+    @Binding var images: [ImageData]
     @State private var showBlurredImage = true
+    @State var index: Int = 0
+    @State var selectImg: UIImage?
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
             VStack {
-               
-                Image(uiImage: (showBlurredImage ? image.img : image.blur) as! UIImage )
+                if let img = selectImg {
+                    Image(uiImage: img)
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .frame(height: 400)
                         .padding()
-    
-                Toggle(isOn: $showBlurredImage) {
-                    Text(showBlurredImage ? "Show Blurred" : "Show Original")
-                        .font(.headline)
-                        .foregroundColor(.primary)
+                }
+                HStack {
+                    Button("back", action: {
+                        if index > 0 {
+                            index = index - 1
+                            setImage()
+                        }
+                    })
+                    Button("forward", action: {
+                        if index < images.count - 1 {
+                            index = index + 1
+                            setImage()
+                        }
+                    })
+                    
+                }
+                .onAppear {
+                    for(index, item) in images.enumerated() {
+                        if image.id == item.id {
+                            self.index = index
+                            setImage()
+                        }
+                    }
+                    print("images:", images)
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .blue))
                 .padding()
@@ -39,5 +61,11 @@ struct SavedImageView: View {
             })
         }
     }
+    func setImage() {
+        DispatchQueue.main.async {
+            if let img = images[index].img {
+                selectImg = img
+            }
+        }
+    }
 }
-
