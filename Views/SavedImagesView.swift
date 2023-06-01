@@ -17,7 +17,7 @@ struct SavedImagesView: View {
                   sortDescriptors: [NSSortDescriptor(keyPath: \ImageData.createAt, ascending: false)],
                   animation: .default)
     private var images: FetchedResults<ImageData>
-    
+    @State private var imageArray: [ImageData] = []
     @State var selectedImage: ImageData = ImageData()
     @State private var isShowingImageDetail = false
     
@@ -34,6 +34,7 @@ struct SavedImagesView: View {
                                 .onTapGesture {
                                     selectedImage = imageEntity
                                     isShowingImageDetail = true
+                                    imageArray = Array(images)
                                 }
                         }
                     }
@@ -43,7 +44,7 @@ struct SavedImagesView: View {
             .padding(.trailing, 4)
             .navigationBarTitle("Saved Images", displayMode: .inline)
             .sheet(isPresented: $isShowingImageDetail) {
-                SavedImageView(image: $selectedImage)
+                SavedImageView(image: $selectedImage, images: $imageArray)
             }
         }
     }

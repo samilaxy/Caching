@@ -32,7 +32,7 @@ struct ImageGridView: View {
                 }
             }.padding(.leading, 4)
                     .padding(.trailing, 4)
-                    .navigationBarTitle("Unsplash Images")
+                    .navigationBarTitle("Images FX")
             }
         }
     }
