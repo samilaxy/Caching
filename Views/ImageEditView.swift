@@ -46,7 +46,7 @@ struct ImageEditView: View {
                         ForEach(buttons, id: \.id) { button in
                             if button.id == 2 {
                                 Button {
-                                    isMenuOpen.toggle()
+                                        isMenuOpen.toggle()
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
@@ -64,7 +64,9 @@ struct ImageEditView: View {
                                 
                             } else {
                                 Button {
-                                    editOption(item: button)
+                                    DispatchQueue.main.async {
+                                        editOption(item: button)
+                                    }
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
@@ -123,6 +125,7 @@ struct ImageEditView: View {
                             Button(action: {
                                     // Handle menu item action
                                 isMenuOpen = false
+                                frameImage(item: item)
                                     // Perform action for menu item
                             }) {
                                 HStack {
@@ -177,18 +180,10 @@ func blurImage() {
             case 1 :
                 print(item.name)
             case 2 :
-                    //  isMenuOpen = true
-                withAnimation {
-                    isMenuOpen.toggle()
-                }
                 print(item.name)
             case 3 :
                 print(item.name)
             case 4 :
-                print(item.name)
-            case 5 :
-                print(item.name)
-            case 6 :
                 print(item.name)
             default : break
         }
@@ -200,7 +195,7 @@ func rotateImage() {
     
 }
 func revertImage() {
-    
+    image = originalImg
 }
 func editOption(item: ButtonItem) {
     switch (item.id) {
@@ -221,6 +216,7 @@ func editOption(item: ButtonItem) {
         case 4 :
             print(item.name)
         case 5 :
+            image = originalImg
             print(item.name)
         case 6 :
             print(item.name)
