@@ -6,7 +6,7 @@
     //
 
 import SwiftUI
-
+import UIKit
 struct ImageEditView: View {
     @State var image: UIImage = UIImage(systemName: "photo")!
     @State var isProgress = false
@@ -28,7 +28,7 @@ struct ImageEditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     var imgUitility = ImageUtilities()
-    @State var originalImg: UIImage = UIImage(systemName: "photo")!
+    @State var originalImg: UIImage?
     var body: some View {
         
         VStack {
@@ -39,20 +39,20 @@ struct ImageEditView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .frame(height: 400)
                     .padding()
-                    .overlay(
-                        Image("BlackFrame") // Replace "frame" with the name of your frame image asset
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 400)
-                    )
-                ////
+                    .onAppear {
+                        if originalImg == nil {
+                            originalImg = image
+                        }
+                        print(originalImg)
+                    }
+                    ////
                 VStack {
                     HStack(spacing: 10) {
                         Spacer()
                         ForEach(buttons, id: \.id) { button in
                             if button.id == 2 {
                                 Button {
-                                        isMenuOpen.toggle()
+                                    isMenuOpen.toggle()
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
@@ -94,9 +94,9 @@ struct ImageEditView: View {
                 } .overlay(
                     menuOverlay
                         .opacity(isMenuOpen ? 1 : 0)
-                        .animation(.easeInOut)
+                        .animation(.easeInOut, value: 2)
                 )
-                 
+                
                 Spacer()
                 
             } else {
@@ -130,7 +130,7 @@ struct ImageEditView: View {
                                     // Perform action for menu item
                             }) {
                                 HStack {
-                                   // Image(item.icon)
+                                        // Image(item.icon)
                                     Text(item.name)
                                 }
                                 .foregroundColor(.black)
@@ -146,83 +146,134 @@ struct ImageEditView: View {
                 )
         }
     }
-
-func saveImage() {
-        // Create a new Image entity
-    let newImage = ImageData(context: moc)
-    newImage.img = originalImg
-    newImage.blur = image
-    newImage.createAt = Date()
     
-    do {
-        try self.moc.save() // Save the changes to Core Data
-        print("image saved..")
-    } catch {
-            // Handle the error
-        print("Failed to save image: \(error)")
-    }
-}
-func blurImage() {
-    isProgress = true
-    originalImg = image
-    DispatchQueue.global().async {
-        let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 1.0)
+    func saveImage() {
+            // Create a new Image entity
+        let newImage = ImageData(context: moc)
+        newImage.img = originalImg
+        newImage.blur = image
+        newImage.createAt = Date()
         
-        DispatchQueue.main.async {
-            image = blurredImage
-            isProgress = false
-            isBlur = true
+        do {
+            try self.moc.save() // Save the changes to Core Data
+            print("image saved..")
+        } catch {
+                // Handle the error
+            print("Failed to save image: \(error)")
         }
     }
-}
+    func blurImage() {
+        isProgress = true
+            //  originalImg = image
+        DispatchQueue.global().async {
+            if let img = originalImg {
+                let blurredImage = imgUitility.gaussianBlur(image: img, blurRadius: 1.0)
+                
+                DispatchQueue.main.async {
+                    image = blurredImage
+                    isProgress = false
+                    isBlur = true
+                }
+            }
+        }
+    }
+    func getImageDimensions(image: UIImage) -> (width: CGFloat, height: CGFloat)? {
+        let imageSize = image.size
+        let scale = image.scale
+        let width = imageSize.width * scale
+        let height = imageSize.height * scale
+        return (width, height)
+    }
+    func addImageFrame(to frameImage: UIImage, frameSize: CGSize = CGSize(width: 100, height: 100)) -> UIImage? {
+        let imageSize = image.size
+        var width = 0.0
+        var height = 0.0
+        if let size = getImageDimensions(image: image) {
+            width = size.width
+            height = size.height
+        }else{
+            
+        }
+        let frameSize = CGSize(width: width, height: height)
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, image.scale)
+            // Draw the original image
+        image.draw(in: CGRect(origin: .zero, size: imageSize))
+            // Calculate the frame position and size
+        let frameOrigin = CGPoint(x: (imageSize.width - frameSize.width) / 2, y: (imageSize.height - frameSize.height) / 2)
+        let frameRect = CGRect(origin: frameOrigin, size: frameSize)
+            // Draw the frame image
+        frameImage.draw(in: frameRect)
+            // Retrieve the merged image
+        let mergedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return mergedImage
+    }
     func frameImage(item: ButtonItem) {
+        var selectedFrame:UIImage = UIImage(systemName: "photo")!
         switch (item.id) {
             case 1 :
+                if let frame =  UIImage(named: item.icon){
+                    selectedFrame = frame
+                }
+            case 2 :
+                if let frame =  UIImage(named: item.icon){
+                    selectedFrame = frame
+                }
+            case 3 :
+                if let frame =  UIImage(named: item.icon){
+                    selectedFrame = frame
+                }
+            case 4 :
+                if let frame =  UIImage(named: item.icon){
+                    selectedFrame = frame
+                }
+            default : break
+        }
+        
+        if let unwrappedImage = addImageFrame(to: selectedFrame) {
+            image = unwrappedImage
+            print(unwrappedImage)
+        }
+    }
+    
+    func zoomImage() {
+        
+    }
+    func rotateImage() {
+        
+    }
+    func revertImage() {
+        if let img = originalImg {
+            image = img
+        }
+    }
+    func editOption(item: ButtonItem) {
+        switch (item.id) {
+            case 1 :
+                    //blur
+                blurImage()
                 print(item.name)
             case 2 :
+                    //  isMenuOpen = true
+                withAnimation {
+                    isMenuOpen.toggle()
+                }
                 print(item.name)
             case 3 :
+                    //zoom
+                
                 print(item.name)
             case 4 :
+                print(item.name)
+            case 5 :
+                revertImage()
+                print(image)
+                print(item.name)
+            case 6 :
                 print(item.name)
             default : break
         }
     }
-func zoomImage() {
-    
-}
-func rotateImage() {
-    
-}
-func revertImage() {
-    image = originalImg
-}
-func editOption(item: ButtonItem) {
-    switch (item.id) {
-        case 1 :
-            //blur
-            blurImage()
-            print(item.name)
-        case 2 :
-                //  isMenuOpen = true
-            withAnimation {
-                isMenuOpen.toggle()
-            }
-            print(item.name)
-        case 3 :
-            //zoom
-            
-            print(item.name)
-        case 4 :
-            print(item.name)
-        case 5 :
-            image = originalImg
-            print(item.name)
-        case 6 :
-            print(item.name)
-        default : break
-    }
-}
 }
 struct ImageEditView_Previews: PreviewProvider {
     static var previews: some View {
