@@ -43,7 +43,6 @@ struct ImageEditView: View {
                         if originalImg == nil {
                             originalImg = image
                         }
-                        print(originalImg)
                     }
                     ////
                 VStack {
@@ -64,7 +63,7 @@ struct ImageEditView: View {
                                             .clipShape(Circle())
                                         Text(button.name)
                                             .font(.system(size: 10))
-                                            .foregroundColor(button.id == 6 ? Color.gray : Color.white)
+                                            .foregroundColor(Color.gray)
                                     }
                                 }
                                 
@@ -84,7 +83,7 @@ struct ImageEditView: View {
                                             .clipShape(Circle())
                                         Text(button.name)
                                             .font(.system(size: 10))
-                                            .foregroundColor(button.id == 6 ? Color.gray : Color.white)
+                                            .foregroundColor(Color.gray)
                                     }
                                 }
                             }
@@ -114,7 +113,7 @@ struct ImageEditView: View {
     @ViewBuilder
     private var menuOverlay: some View {
         if isMenuOpen {
-            Color.black
+            Color.clear
                 .opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
@@ -133,14 +132,13 @@ struct ImageEditView: View {
                                         // Image(item.icon)
                                     Text(item.name)
                                 }
-                                .foregroundColor(.black)
-                                
+                                .foregroundColor(.black.opacity(0.7))
                             }
                             Divider()
                         }
                     }.frame(width: 200)
                         .padding()
-                        .background(Color.white)
+                        .background(Color.gray.opacity(1))
                         .cornerRadius(10)
                         .padding(30)
                 )
@@ -177,6 +175,16 @@ struct ImageEditView: View {
             }
         }
     }
+    
+    func applyZoomEffect(image: UIImage, zoomScale: CGFloat) -> UIImage? {
+        let newSize = CGSize(width: image.size.width * zoomScale, height: image.size.height * zoomScale)
+        let newRect = CGRect(origin: .zero, size: newSize)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
+        defer { UIGraphicsEndImageContext() }
+        image.draw(in: newRect)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+
     func getImageDimensions(image: UIImage) -> (width: CGFloat, height: CGFloat)? {
         let imageSize = image.size
         let scale = image.scale
@@ -184,7 +192,7 @@ struct ImageEditView: View {
         let height = imageSize.height * scale
         return (width, height)
     }
-    func addImageFrame(to frameImage: UIImage, frameSize: CGSize = CGSize(width: 100, height: 100)) -> UIImage? {
+    func addImageFrame(to frameImage: UIImage) -> UIImage? {
         let imageSize = image.size
         var width = 0.0
         var height = 0.0

@@ -25,16 +25,21 @@ struct SavedImageView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .frame(height: 400)
                         .padding()
+                        .offset(x: offset)
                         .gesture(
                             DragGesture()
+                                .onChanged { gesture in
+                                    offset = gesture.translation.width
+                                }
                                 .onEnded { gesture in
                                     if gesture.translation.width < 0 {
                                         handleSwipeRight(num: 1)
                                     } else if gesture.translation.width > 0 {
                                         handleSwipeRight(num: -1)
                                     }
+                                    offset = 0
                                 }
-                        )
+                        ).animation(.easeOut(duration: 0.5))
                 }
                 
                 HStack {
