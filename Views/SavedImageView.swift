@@ -43,17 +43,23 @@ struct SavedImageView: View {
                 }
                 
                 HStack {
-                    Button("back", action: {
+                    Button(action: {
                         if index > 0 {
                             index = index - 1
                             setImage()
                         }
+                    },label: {
+                        Image(systemName: "arrow.backward.circle.fill")
+                            .font(.system(size: 30))
                     })
-                    Button("forward", action: {
+                    Button( action: {
                         if index < images.count - 1 {
                             index = index + 1
                             setImage()
                         }
+                    },label: {
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .font(.system(size: 30))
                     })
                     
                 }
