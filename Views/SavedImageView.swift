@@ -42,7 +42,7 @@ struct SavedImageView: View {
                         ).animation(.easeOut(duration: 0.5))
                 }
                 
-                HStack {
+                HStack(spacing: 10) {
                     Button(action: {
                         if index > 0 {
                             index = index - 1
