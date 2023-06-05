@@ -8,29 +8,102 @@
 import SwiftUI
 
 struct ImageDetailView: View {
-    @StateObject var imageLoader: ImageLoaderVM
+    var images: [UnsplashImage]
     @State private var route = false
-    init(imageUrl: String, key: String) {
-        _imageLoader = StateObject(wrappedValue: ImageLoaderVM(url: URL(string: imageUrl)!, key: key))
-    }
+    var selectedIndex: Int
+    @State private var currentIndex: Int = 0
+    @State private var image: UIImage?
     
     var body: some View {
-        VStack {
-            Spacer()
-            Image(uiImage: imageLoader.image ?? UIImage(systemName: "photo")!)
-                .resizable()
-                .navigationBarTitle("Image View", displayMode: .inline)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .frame(height: 400)
-                .padding()
-            Spacer()
-        }.navigationDestination(isPresented: $route, destination: {
-            imageLoader.image.map {ImageEditView(image: $0)}
-        })
-        .navigationBarItems(trailing: Button(action: {
+    //    NavigationStack {
+            VStack {
+                Spacer()
+                Image(uiImage: image ?? UIImage(systemName: "photo")!)
+                    .resizable()
+                    .frame(height: 400)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding()
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if currentIndex > 0 {
+                            currentIndex -= 1
+                            loadImage()
+                        }
+                    }) {
+                        Image(systemName: "chevron.left")
+                    }
+                    .padding()
+                    .disabled(currentIndex == 0)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        if currentIndex < images.count - 1 {
+                            currentIndex += 1
+                            loadImage()
+                        }
+                    }) {
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding()
+                    .disabled(currentIndex == images.count - 1)
+                    Spacer()
+                }
+                Spacer()
+            }
+            .onAppear {
+                currentIndex = selectedIndex
+                loadImage()
+            }
+            .gesture(
+                DragGesture()
+                    .onEnded { gesture in
+                        let swipeThreshold: CGFloat = 100
+                        
+                        if gesture.translation.width > swipeThreshold {
+                            if currentIndex > 0 {
+                                currentIndex -= 1
+                                loadImage()
+                            }
+                        } else if gesture.translation.width < -swipeThreshold {
+                            if currentIndex < images.count - 1 {
+                                currentIndex += 1
+                                loadImage()
+                            }
+                        }
+                    }
+            )
+            .navigationDestination(isPresented: $route, destination: {
+                image.map {ImageEditView(image: $0)}
+            })
+            .navigationBarItems(trailing: Button(action: {
                 route = true
+                print(route)
             }){
                 Image(systemName: "square.and.pencil")
             })
+        }
+  //  }
+    private func loadImage() {
+        let urlString = images[currentIndex].urls.regular
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data, let loadedImage = UIImage(data: data) else { return }
+            
+            DispatchQueue.main.async {
+                image = loadedImage
+            }
+        }.resume()
     }
 }
+
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                
+
