@@ -12,16 +12,19 @@ struct ImageEditView: View {
     @State var isProgress = false
     @State var isDone = false
     @State var isBlur = false
+    @State private var showAlert = false
     @State private var isMenuOpen = false
     @State private var selectedButton: ButtonItem?
+    @Environment(\.colorScheme) var colorScheme
     let menuItems = [ButtonItem(id: 1, name: "Black Frame", icon: "BlackFrame"),
                      ButtonItem(id: 2, name: "Dark Wood Frame", icon: "DarkWoodFrame"),
                      ButtonItem(id: 3, name: "Gold Frame", icon: "GoldFrame"),
-                     ButtonItem(id: 4, name: "Light Wood Frame", icon: "LightWoodFrame")]
+                     ButtonItem(id: 4, name: "Light Wood Frame", icon: "LightWoodFrame"),
+                     ButtonItem(id: 5, name: "None", icon: "")]
     var buttons = [ButtonItem(id: 1, name: "Blur", icon: "button.programmable.square.fill"),
                    ButtonItem(id: 2, name: "Frame", icon: "photo.artframe"),
                    ButtonItem(id: 3, name: "Zoom", icon: "plus.magnifyingglass"),
-                   ButtonItem(id: 4, name: "Rotate", icon: "rotate.left"),
+                   ButtonItem(id: 4, name: "Rotate", icon: "gobackward"),
                    ButtonItem(id: 5, name: "Revert", icon: "clear"),
                    ButtonItem(id: 6, name: "Done", icon: "square.and.arrow.down.fill")
     ]
@@ -39,6 +42,7 @@ struct ImageEditView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .frame(height: 400)
                     .padding()
+                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                     .onAppear {
                         if originalImg == nil {
                             originalImg = image
@@ -56,7 +60,7 @@ struct ImageEditView: View {
                                     VStack {
                                         Image(systemName: button.icon)
                                             .font(.system(size: 15))
-                                            .frame(width: 20, height: 20)
+                                            .frame(width: 25, height: 25)
                                             .foregroundColor(.white)
                                             .padding(10)
                                             .background(button.id == 6 ? Color.gray : Color.blue)
@@ -70,13 +74,15 @@ struct ImageEditView: View {
                             } else {
                                 Button {
                                     DispatchQueue.main.async {
-                                        editOption(item: button)
+                                        withAnimation {
+                                            editOption(item: button)
+                                        }
                                     }
                                 } label: {
                                     VStack {
                                         Image(systemName: button.icon)
                                             .font(.system(size: 15))
-                                            .frame(width: 20, height: 20)
+                                            .frame(width: 25, height: 25)
                                             .foregroundColor(.white)
                                             .padding(10)
                                             .background(button.id == 6 ? Color.gray : Color.blue)
@@ -95,7 +101,13 @@ struct ImageEditView: View {
                         .opacity(isMenuOpen ? 1 : 0)
                         .animation(.easeInOut, value: 2)
                 )
-                
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Image Saved"),
+                        message: Text("The image has been saved successfully."),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
                 Spacer()
                 
             } else {
@@ -125,20 +137,25 @@ struct ImageEditView: View {
                             Button(action: {
                                     // Handle menu item action
                                 isMenuOpen = false
-                                frameImage(item: item)
+                                if item.id == 5 {
+                                    isMenuOpen = false
+                                }else {
+                                    frameImage(item: item)
+                                }
                                     // Perform action for menu item
                             }) {
                                 HStack {
                                         // Image(item.icon)
                                     Text(item.name)
+                                        .foregroundColor(Color(.label))
                                 }
-                                .foregroundColor(.black.opacity(0.7))
+                                
                             }
                             Divider()
                         }
                     }.frame(width: 200)
                         .padding()
-                        .background(Color.gray.opacity(1))
+                        .background(Color("PopMenuColor"))
                         .cornerRadius(10)
                         .padding(30)
                 )
@@ -154,7 +171,7 @@ struct ImageEditView: View {
         
         do {
             try self.moc.save() // Save the changes to Core Data
-            print("image saved..")
+            showAlert = true
         } catch {
                 // Handle the error
             print("Failed to save image: \(error)")
@@ -235,6 +252,8 @@ struct ImageEditView: View {
                 if let frame =  UIImage(named: item.icon){
                     selectedFrame = frame
                 }
+            case 5 :
+                break
             default : break
         }
         
@@ -269,16 +288,15 @@ struct ImageEditView: View {
                 print(item.name)
             case 3 :
                     //zoom
-                
                 print(item.name)
             case 4 :
                 print(item.name)
             case 5 :
+                    //revert
                 revertImage()
-                print(image)
-                print(item.name)
             case 6 :
-                print(item.name)
+                    //save
+                saveImage()
             default : break
         }
     }

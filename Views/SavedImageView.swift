@@ -15,6 +15,7 @@ struct SavedImageView: View {
     @State var index: Int = 0
     @State var selectImg: UIImage?
     @State private var offset: CGFloat = 0
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
@@ -25,6 +26,7 @@ struct SavedImageView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .frame(height: 400)
                         .padding()
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                         .offset(x: offset)
                         .gesture(
                             DragGesture()
@@ -39,7 +41,9 @@ struct SavedImageView: View {
                                     }
                                     offset = 0
                                 }
-                        ).animation(.easeOut(duration: 0.5))
+                        )
+                } else {
+                    ProgressView()
                 }
                 
                 HStack(spacing: 10) {
@@ -50,8 +54,10 @@ struct SavedImageView: View {
                         }
                     },label: {
                         Image(systemName: "arrow.backward.circle.fill")
-                            .font(.system(size: 30))
-                    })
+                            .renderingMode(.template)
+                            .font(.system(size: 40))
+                    }).disabled(index == 0)
+                    
                     Button( action: {
                         if index < images.count - 1 {
                             index = index + 1
@@ -59,9 +65,9 @@ struct SavedImageView: View {
                         }
                     },label: {
                         Image(systemName: "arrow.forward.circle.fill")
-                            .font(.system(size: 30))
-                    })
-                    
+                            .renderingMode(.template)
+                            .font(.system(size: 40))
+                    }).disabled(index == images.count - 1)
                 }
                 .onAppear {
                     for(index, item) in images.enumerated() {
@@ -70,7 +76,6 @@ struct SavedImageView: View {
                             setImage()
                         }
                     }
-                    print("images:", images)
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .blue))
                 .padding()
@@ -97,8 +102,8 @@ struct SavedImageView: View {
 
     func setImage() {
         DispatchQueue.main.async {
-            if let img = images[index].img {
-                selectImg = img
+            if let img = images[index].blur {
+                selectImg = img as? UIImage
             }
         }
     }

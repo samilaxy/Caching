@@ -13,18 +13,23 @@ struct ImageDetailView: View {
     var selectedIndex: Int
     @State private var currentIndex: Int = 0
     @State private var image: UIImage?
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-    //    NavigationStack {
-            VStack {
-                Spacer()
-                Image(uiImage: image ?? UIImage(systemName: "photo")!)
+        
+        VStack {
+            Spacer()
+            if let img = image {
+                Image(uiImage: img)
                     .resizable()
                     .frame(height: 400)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding()
-                
-                HStack {
+                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+            } else {
+                ProgressView()
+            }
+                HStack(spacing: 10) {
                     Spacer()
                     Button(action: {
                         if currentIndex > 0 {
@@ -32,12 +37,11 @@ struct ImageDetailView: View {
                             loadImage()
                         }
                     }) {
-                        Image(systemName: "chevron.left")
+                        Image(systemName: "arrow.backward.circle.fill")
+                            .renderingMode(.template)
+                            .font(.system(size: 40))
                     }
-                    .padding()
                     .disabled(currentIndex == 0)
-                    
-                    Spacer()
                     
                     Button(action: {
                         if currentIndex < images.count - 1 {
@@ -45,15 +49,17 @@ struct ImageDetailView: View {
                             loadImage()
                         }
                     }) {
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .renderingMode(.template)
+                            .font(.system(size: 40))
                     }
-                    .padding()
                     .disabled(currentIndex == images.count - 1)
                     Spacer()
                 }
-                Spacer()
-            }
-            .onAppear {
+            Spacer()
+        }
+        .padding(.bottom, 30)
+        .onAppear {
                 currentIndex = selectedIndex
                 loadImage()
             }
@@ -85,7 +91,7 @@ struct ImageDetailView: View {
                 Image(systemName: "square.and.pencil")
             })
         }
-  //  }
+    
     private func loadImage() {
         let urlString = images[currentIndex].urls.regular
         guard let url = URL(string: urlString) else { return }
