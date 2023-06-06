@@ -80,7 +80,6 @@ struct SavedImageView: View {
                 .toggleStyle(SwitchToggleStyle(tint: .blue))
                 .padding()
             }
-            .padding()
             .navigationBarTitle("Image", displayMode: .inline)
             .navigationBarItems(trailing: Button(action: {
                 presentationMode.wrappedValue.dismiss()

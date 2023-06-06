@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+
 struct ImageEditView: View {
     @State var image: UIImage = UIImage(systemName: "photo")!
     @State var isProgress = false
@@ -15,6 +16,8 @@ struct ImageEditView: View {
     @State private var showAlert = false
     @State private var isMenuOpen = false
     @State private var selectedButton: ButtonItem?
+    @State private var rotateValue = 0
+    @State private var orientation: UIImage.Orientation = .right
     @Environment(\.colorScheme) var colorScheme
     let menuItems = [ButtonItem(id: 1, name: "Black Frame", icon: "BlackFrame"),
                      ButtonItem(id: 2, name: "Dark Wood Frame", icon: "DarkWoodFrame"),
@@ -96,7 +99,7 @@ struct ImageEditView: View {
                         }
                         Spacer()
                     }
-                } .overlay(
+                }.overlay(
                     menuOverlay
                         .opacity(isMenuOpen ? 1 : 0)
                         .animation(.easeInOut, value: 2)
@@ -172,6 +175,7 @@ struct ImageEditView: View {
         do {
             try self.moc.save() // Save the changes to Core Data
             showAlert = true
+            presentationMode.wrappedValue.dismiss()
         } catch {
                 // Handle the error
             print("Failed to save image: \(error)")
@@ -267,8 +271,12 @@ struct ImageEditView: View {
         
     }
     func rotateImage() {
-        
+        rotateValue = (rotateValue % 4) + 1
+        let orientations: [UIImage.Orientation] = [.right, .down, .left, .up]
+        orientation = orientations[rotateValue - 1]
+        image = imgUitility.rotateImage(image: image, rotation: orientation) ?? originalImg!
     }
+
     func revertImage() {
         if let img = originalImg {
             image = img
@@ -290,7 +298,8 @@ struct ImageEditView: View {
                     //zoom
                 print(item.name)
             case 4 :
-                print(item.name)
+             //   angle += 45.0
+              rotateImage()
             case 5 :
                     //revert
                 revertImage()
