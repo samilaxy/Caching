@@ -29,7 +29,7 @@ struct ImageEditView: View {
                    ButtonItem(id: 3, name: "Zoom", icon: "plus.magnifyingglass"),
                    ButtonItem(id: 4, name: "Rotate", icon: "gobackward"),
                    ButtonItem(id: 5, name: "Revert", icon: "clear"),
-                   ButtonItem(id: 6, name: "Done", icon: "square.and.arrow.down.fill")
+                   ButtonItem(id: 6, name: "Save", icon: "square.and.arrow.down.fill")
     ]
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
@@ -38,7 +38,6 @@ struct ImageEditView: View {
     var body: some View {
         
         VStack {
-            if !isProgress {
                 Spacer()
                 Image(uiImage: image)
                     .resizable()
@@ -77,7 +76,7 @@ struct ImageEditView: View {
                             } else {
                                 Button {
                                     DispatchQueue.main.async {
-                                        withAnimation {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
                                             editOption(item: button)
                                         }
                                     }
@@ -112,11 +111,8 @@ struct ImageEditView: View {
                     )
                 }
                 Spacer()
-                
-            } else {
-                ProgressView()
-            }
         }
+        .padding(.bottom, 20)
         .navigationBarTitle("Edit Image", displayMode: .inline)
         .navigationBarItems(trailing: Button(action: {
             presentationMode.wrappedValue.dismiss()
@@ -268,7 +264,7 @@ struct ImageEditView: View {
     }
     
     func zoomImage() {
-        
+        image = imgUitility.zoomImage(image: image, scale: 3.0) ?? originalImg!
     }
     func rotateImage() {
         rotateValue = (rotateValue % 4) + 1
@@ -289,27 +285,27 @@ struct ImageEditView: View {
                 blurImage()
                 print(item.name)
             case 2 :
-                    //  isMenuOpen = true
+                    // frame image
                 withAnimation {
                     isMenuOpen.toggle()
                 }
-                print(item.name)
             case 3 :
-                    //zoom
-                print(item.name)
+                    // zoom
+                zoomImage()
             case 4 :
-             //   angle += 45.0
+                    // rotate
               rotateImage()
             case 5 :
-                    //revert
+                    // revert
                 revertImage()
             case 6 :
-                    //save
+                    // save
                 saveImage()
             default : break
         }
     }
 }
+
 struct ImageEditView_Previews: PreviewProvider {
     static var previews: some View {
         ImageEditView()
