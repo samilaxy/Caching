@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreImage
 import Photos
+import CoreImage.CIFilterBuiltins
 
 class ImageUtilities: ObservableObject {
     var images: [UIImage] = []
@@ -29,7 +30,7 @@ class ImageUtilities: ObservableObject {
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
             return image
         }
-
+        
         return UIImage(cgImage: cgImage)
     }
     
@@ -52,5 +53,22 @@ class ImageUtilities: ObservableObject {
         }
         
         return UIImage(cgImage: cgImage)
+    }
+    func rotateImage(image: UIImage, rotation: UIImage.Orientation) -> UIImage? {
+        guard let cgImage = image.cgImage else {
+            return nil
+        }
+        let imageSize = CGSize(width: image.size.width, height: image.size.height)
+        let imageRect = CGRect(origin: .zero, size: imageSize)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let context = CGContext(data: nil, width: Int(imageSize.width), height: Int(imageSize.height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil
+        }
+        context.draw(cgImage, in: imageRect)
+        guard let newCGImage = context.makeImage() else {
+            return nil
+        }
+        let newImage = UIImage(cgImage: newCGImage, scale: image.scale, orientation: rotation)
+        return newImage
     }
 }
