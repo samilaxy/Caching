@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491F31AF2A2FD3CE00836310 /* ImageEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F31AE2A2FD3CD00836310 /* ImageEditViewModel.swift */; };
 		491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */; };
 		491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */; };
 		491FC7E229D2E88C00E2D6B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491FC7E129D2E88C00E2D6B2 /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		490DA12D2A2755C900F05278 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		490DA12E2A27565800F05278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		491F31AE2A2FD3CD00836310 /* ImageEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewModel.swift; sourceTree = "<group>"; };
 		491FC7DA29D2E88A00E2D6B2 /* Caching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingApp.swift; sourceTree = "<group>"; };
 		491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				497C4F152A20B42A00E7850C /* ImageLoaderVM.swift */,
 				497C4F162A20B42A00E7850C /* ViewModel.swift */,
+				491F31AE2A2FD3CD00836310 /* ImageEditViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491F31AF2A2FD3CE00836310 /* ImageEditViewModel.swift in Sources */,
 				497C4F052A20AFD100E7850C /* ImageView.swift in Sources */,
 				497C4F262A20EDB400E7850C /* SavedImagesView.swift in Sources */,
 				497C4F042A20AFD100E7850C /* ImageEditView.swift in Sources */,

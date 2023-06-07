@@ -1,14 +1,19 @@
-//
-//  ImageDetailView.swift
-//  Caching
-//
-//  Created by Noye Samuel on 25/05/2023.
-//
+    //
+    //  ImageDetailView.swift
+    //  Caching
+    //
+    //  Created by Noye Samuel on 25/05/2023.
+    //
 
 import SwiftUI
 
 struct ImageDetailView: View {
     var images: [UnsplashImage]
+        // Create an instance of ImageEditViewModel
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @StateObject var imageEditViewModel = ImageEditViewModel()
+    
     @State private var route = false
     var selectedIndex: Int
     @State private var currentIndex: Int = 0
@@ -29,69 +34,72 @@ struct ImageDetailView: View {
             } else {
                 ProgressView()
             }
-                HStack(spacing: 10) {
-                    Spacer()
-                    Button(action: {
-                        if currentIndex > 0 {
-                            currentIndex -= 1
-                            loadImage()
-                        }
-                    }) {
-                        Image(systemName: "arrow.backward.circle.fill")
-                            .renderingMode(.template)
-                            .font(.system(size: 40))
+            HStack(spacing: 10) {
+                Spacer()
+                Button(action: {
+                    if currentIndex > 0 {
+                        currentIndex -= 1
+                        loadImage()
                     }
-                    .disabled(currentIndex == 0)
-                    
-                    Button(action: {
-                        if currentIndex < images.count - 1 {
-                            currentIndex += 1
-                            loadImage()
-                        }
-                    }) {
-                        Image(systemName: "arrow.forward.circle.fill")
-                            .renderingMode(.template)
-                            .font(.system(size: 40))
-                    }
-                    .disabled(currentIndex == images.count - 1)
-                    Spacer()
+                }) {
+                    Image(systemName: "arrow.backward.circle.fill")
+                        .renderingMode(.template)
+                        .font(.system(size: 40))
                 }
+                .disabled(currentIndex == 0)
+                
+                Button(action: {
+                    if currentIndex < images.count - 1 {
+                        currentIndex += 1
+                        loadImage()
+                    }
+                }) {
+                    Image(systemName: "arrow.forward.circle.fill")
+                        .renderingMode(.template)
+                        .font(.system(size: 40))
+                }
+                .disabled(currentIndex == images.count - 1)
+                Spacer()
+            }
             Spacer()
         }
         .padding(.bottom, 30)
         .onAppear {
-                currentIndex = selectedIndex
-                loadImage()
-            }
-            .gesture(
-                DragGesture()
-                    .onEnded { gesture in
-                        let swipeThreshold: CGFloat = 100
-                        
-                        if gesture.translation.width > swipeThreshold {
-                            if currentIndex > 0 {
-                                currentIndex -= 1
-                                loadImage()
-                            }
-                        } else if gesture.translation.width < -swipeThreshold {
-                            if currentIndex < images.count - 1 {
-                                currentIndex += 1
-                                loadImage()
-                            }
+            currentIndex = selectedIndex
+            loadImage()
+        }
+        .gesture(
+            DragGesture()
+                .onEnded { gesture in
+                    let swipeThreshold: CGFloat = 100
+                    
+                    if gesture.translation.width > swipeThreshold {
+                        if currentIndex > 0 {
+                            currentIndex -= 1
+                            loadImage()
+                        }
+                    } else if gesture.translation.width < -swipeThreshold {
+                        if currentIndex < images.count - 1 {
+                            currentIndex += 1
+                            loadImage()
                         }
                     }
-            )
-            .navigationDestination(isPresented: $route, destination: {
-                image.map {ImageEditView(image: $0)}
-            })
-            .navigationBarItems(trailing: Button(action: {
+                }
+        )
+        .navigationDestination(isPresented: $route, destination: {
+            ImageEditView(viewModel: imageEditViewModel)
+        })
+        .navigationBarItems(trailing: Button(action: {
+            if let image = image {
+                imageEditViewModel.image = image
                 route = true
                 print(route)
-            }){
-                Image(systemName: "square.and.pencil")
-            })
-        }
-    
+            }
+            route = true
+        }){
+            Image(systemName: "square.and.pencil")
+        })
+    }
     private func loadImage() {
         let urlString = images[currentIndex].urls.regular
         guard let url = URL(string: urlString) else { return }
@@ -106,10 +114,10 @@ struct ImageDetailView: View {
     }
 }
 
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                
+
+
+
+
+
+
 
