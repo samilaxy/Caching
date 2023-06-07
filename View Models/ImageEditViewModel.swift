@@ -67,9 +67,9 @@ class ImageEditViewModel: ObservableObject {
     }
     
     func frameImage(item: ButtonItem) {
-        if let img = originalImg {
-            image = imgUitility.frameImage(item: item, image: img)
-        }
+     //   if let img = image {
+            image = imgUitility.frameImage(item: item, image: image)
+     //   }
     }
     
     func editOption(item: ButtonItem) {
@@ -89,7 +89,12 @@ class ImageEditViewModel: ObservableObject {
                 break
         }
     }
-    
+    func rotateImage() {
+        rotateValue = (rotateValue % 4) + 1
+        let orientations: [UIImage.Orientation] = [.right, .down, .left, .up]
+        orientation = orientations[rotateValue - 1]
+        image = imgUitility.rotateImage(image: image, rotation: orientation) ?? originalImg!
+    }
     private func imageOrientation(from rotateValue: Int) -> UIImage.Orientation {
         let orientation: UIImage.Orientation
         

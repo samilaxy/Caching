@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ImageDetailView: View {
     var images: [UnsplashImage]
-        // Create an instance of ImageEditViewModel
     @Environment(\.managedObjectContext) var managedObjectContext
-    
     @StateObject var imageEditViewModel = ImageEditViewModel()
     
     @State private var route = false
@@ -87,15 +85,13 @@ struct ImageDetailView: View {
                 }
         )
         .navigationDestination(isPresented: $route, destination: {
-            ImageEditView(viewModel: imageEditViewModel)
+            ImageEditView(editViewModel: imageEditViewModel)
         })
         .navigationBarItems(trailing: Button(action: {
             if let image = image {
                 imageEditViewModel.image = image
                 route = true
-                print(route)
             }
-            route = true
         }){
             Image(systemName: "square.and.pencil")
         })

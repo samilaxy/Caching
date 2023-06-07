@@ -316,38 +316,43 @@
 import SwiftUI
 
 struct ImageEditView: View {
-    @StateObject var viewModel: ImageEditViewModel
+    @StateObject var editViewModel: ImageEditViewModel
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
+    @State var image: UIImage = UIImage(systemName: "photo")!
     var body: some View {
         VStack {
             Spacer()
-            Image(uiImage: viewModel.image)
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .frame(height: 400)
-                .padding()
-                .scaleEffect(viewModel.zoomScale)
-                .gesture(MagnificationGesture()
-                    .onChanged { value in
-                        viewModel.zoomScale = value.magnitude
+            ZStack {
+                Image(uiImage: editViewModel.image)
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(height: 400)
+                    .padding()
+                    .scaleEffect(editViewModel.zoomScale)
+                    .gesture(MagnificationGesture()
+                        .onChanged { value in
+                            editViewModel.zoomScale = value.magnitude
+                        }
+                    )
+                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+                    .onAppear {
+                        if editViewModel.originalImg == nil {
+                            editViewModel.originalImg = editViewModel.image
+                        }
                     }
-                )
-                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                .onAppear {
-                    if viewModel.originalImg == nil {
-                        viewModel.originalImg = viewModel.image
-                    }
-                }
-            
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+            }
             VStack {
                 HStack(spacing: 10) {
                     Spacer()
-                    ForEach(viewModel.buttons, id: \.id) { button in
+                    ForEach(editViewModel.buttons, id: \.id) { button in
                         if button.id == 2 {
                             Button {
-                                viewModel.isMenuOpen.toggle()
+                                editViewModel.isMenuOpen.toggle()
                             } label: {
                                 VStack {
                                     Image(systemName: button.icon)
@@ -365,8 +370,9 @@ struct ImageEditView: View {
                         } else {
                             Button {
                                 DispatchQueue.main.async {
+                                        //  image = viewModel.image
                                     withAnimation(.easeInOut(duration: 0.5)) {
-                                        button.id == 6 ? saveImage() : viewModel.editOption(item: button)
+                                        button.id == 6 ? saveImage(img: editViewModel.image) : editViewModel.editOption(item: button)
                                     }
                                 }
                             } label: {
@@ -390,10 +396,10 @@ struct ImageEditView: View {
             }
             .overlay(
                 menuOverlay()
-                    .opacity(viewModel.isMenuOpen ? 1 : 0)
+                    .opacity(editViewModel.isMenuOpen ? 1 : 0)
                     .animation(.easeInOut, value: 2)
             )
-            .alert(isPresented: $viewModel.showAlert) {
+            .alert(isPresented: $editViewModel.showAlert) {
                 Alert(
                     title: Text("Image Saved"),
                     message: Text("The image has been saved successfully."),
@@ -412,23 +418,23 @@ struct ImageEditView: View {
     }
     
     private func menuOverlay() -> some View {
-        if viewModel.isMenuOpen {
+        if editViewModel.isMenuOpen {
             return AnyView(
                 Color.clear
                     .opacity(0.5)
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
-                        viewModel.isMenuOpen = false
+                        editViewModel.isMenuOpen = false
                     }
                     .overlay(
                         VStack(alignment: .leading, spacing: 10) {
-                            ForEach(viewModel.menuItems) { item in
+                            ForEach(editViewModel.menuItems) { item in
                                 Button(action: {
-                                    viewModel.isMenuOpen = false
+                                    editViewModel.isMenuOpen = false
                                     if item.id == 5 {
-                                        viewModel.isMenuOpen = false
+                                        editViewModel.isMenuOpen = false
                                     } else {
-                                        viewModel.frameImage(item: item)
+                                        editViewModel.frameImage(item: item)
                                     }
                                 }) {
                                     HStack {
@@ -450,17 +456,17 @@ struct ImageEditView: View {
             return AnyView(EmptyView())
         }
     }
-    private func saveImage() {
+    private func saveImage(img: UIImage) {
             // Create a new Image entity
         let newImage = ImageData(context: moc)
-        newImage.img = viewModel.image
-        newImage.blur = viewModel.originalImg
+        newImage.img = editViewModel.originalImg
+        newImage.blur = editViewModel.image
         newImage.createAt = Date()
-        
+        image = editViewModel.image
         do {
             try self.moc.save() // Save the changes to Core Data
-            viewModel.showAlert = true
-            presentationMode.wrappedValue.dismiss()
+            editViewModel.showAlert = true
+                // presentationMode.wrappedValue.dismiss()
         } catch {
                 // Handle the error
             print("Failed to save image: \(error)")
