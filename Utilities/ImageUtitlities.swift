@@ -33,16 +33,7 @@ class ImageUtilities: ObservableObject {
         
         return UIImage(cgImage: cgImage)
     }
-    func zoomImage(image: UIImage, scale: CGFloat) -> UIImage? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        
-        let scaleTransform = CGAffineTransform(scaleX: scale, y: scale)
-        let filteredImage = ciImage.transformed(by: scaleTransform)
-        
-        let context = CIContext(options: nil)
-        guard let outputImage = context.createCGImage(filteredImage, from: filteredImage.extent) else { return nil }
-        
-        return UIImage(cgImage: outputImage)
+    func zoomImage() {
     }
     func removeBlurEffect(image: UIImage) -> UIImage {
             // Reverses the effect of the gaussianBlur function by applying a blank CIFilter

@@ -18,7 +18,6 @@ struct ImageEditView: View {
     @State private var selectedButton: ButtonItem?
     @State private var rotateValue = 0
     @State private var orientation: UIImage.Orientation = .right
-    @State private var zoomScale: CGFloat = 1.0
     @Environment(\.colorScheme) var colorScheme
     let menuItems = [ButtonItem(id: 1, name: "Black Frame", icon: "BlackFrame"),
                      ButtonItem(id: 2, name: "Dark Wood Frame", icon: "DarkWoodFrame"),
@@ -45,12 +44,6 @@ struct ImageEditView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .frame(height: 400)
                     .padding()
-                    .scaleEffect(zoomScale)
-                    .gesture(MagnificationGesture()
-                        .onChanged { value in
-                            zoomScale = value.magnitude
-                        }
-                    )
                     .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                     .onAppear {
                         if originalImg == nil {
@@ -200,6 +193,15 @@ struct ImageEditView: View {
         }
     }
     
+    func applyZoomEffect(image: UIImage, zoomScale: CGFloat) -> UIImage? {
+        let newSize = CGSize(width: image.size.width * zoomScale, height: image.size.height * zoomScale)
+        let newRect = CGRect(origin: .zero, size: newSize)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
+        defer { UIGraphicsEndImageContext() }
+        image.draw(in: newRect)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+
     func getImageDimensions(image: UIImage) -> (width: CGFloat, height: CGFloat)? {
         let imageSize = image.size
         let scale = image.scale
@@ -207,7 +209,6 @@ struct ImageEditView: View {
         let height = imageSize.height * scale
         return (width, height)
     }
-    
     func addImageFrame(to frameImage: UIImage) -> UIImage? {
         let imageSize = image.size
         var width = 0.0
@@ -232,7 +233,6 @@ struct ImageEditView: View {
         UIGraphicsEndImageContext()
         return mergedImage
     }
-    
     func frameImage(item: ButtonItem) {
         var selectedFrame:UIImage = UIImage(systemName: "photo")!
         switch (item.id) {
@@ -259,11 +259,12 @@ struct ImageEditView: View {
         
         if let unwrappedImage = addImageFrame(to: selectedFrame) {
             image = unwrappedImage
+            print(unwrappedImage)
         }
     }
+    
     func zoomImage() {
-        image = imgUitility.zoomImage(image: image, scale: zoomScale) ?? originalImg!
-        print("zoom:",image)
+        image = imgUitility.zoomImage(image: image, scale: 3.0) ?? originalImg!
     }
     func rotateImage() {
         rotateValue = (rotateValue % 4) + 1
@@ -271,6 +272,7 @@ struct ImageEditView: View {
         orientation = orientations[rotateValue - 1]
         image = imgUitility.rotateImage(image: image, rotation: orientation) ?? originalImg!
     }
+
     func revertImage() {
         if let img = originalImg {
             image = img
