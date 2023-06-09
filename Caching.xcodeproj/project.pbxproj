@@ -38,6 +38,7 @@
 		497C4F362A215AAE00E7850C /* ImageData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */; };
 		497C4F382A23BB4D00E7850C /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F372A23BB4C00E7850C /* UIImageTransformer.swift */; };
 		497C4F3A2A23D58A00E7850C /* SavedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F392A23D58A00E7850C /* SavedImageView.swift */; };
+		49C272B22A337F840048632A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C272B12A337F840048632A /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		497C4F372A23BB4C00E7850C /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
 		497C4F392A23D58A00E7850C /* SavedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImageView.swift; sourceTree = "<group>"; };
+		49C272B12A337F840048632A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				497C4F002A20AFD000E7850C /* ImageEditView.swift */,
 				497C4F012A20AFD000E7850C /* ImageView.swift */,
 				497C4F392A23D58A00E7850C /* SavedImageView.swift */,
+				49C272B12A337F840048632A /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				497C4F0F2A20B2FA00E7850C /* ImageViewStateManager.swift in Sources */,
 				497C4F082A20B0AF00E7850C /* Models.swift in Sources */,
 				497C4F362A215AAE00E7850C /* ImageData+CoreDataProperties.swift in Sources */,
+				49C272B22A337F840048632A /* HomeView.swift in Sources */,
 				497C4F382A23BB4D00E7850C /* UIImageTransformer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

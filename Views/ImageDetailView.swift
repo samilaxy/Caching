@@ -23,6 +23,7 @@ struct ImageDetailView: View {
     var body: some View {
         VStack {
             Spacer()
+
             TabView(selection: $currentIndex) {
                 ForEach(images.indices, id: \.self) { index in
                     loadImage(at: index)
@@ -42,7 +43,7 @@ struct ImageDetailView: View {
         })
         .navigationBarItems(trailing: Button(action: {
             if let image = image {
-                imageEditViewModel.image = image
+               // imageEditViewModel.image = image
                 route = true
             }
         }){
@@ -55,14 +56,11 @@ struct ImageDetailView: View {
         guard let url = URL(string: urlString) else { return AnyView(EmptyView()) }
         
         return ImageLoader(url: url) { image in
-            DispatchQueue.main.async {
-                self.image = image
-            }
+            self.image = image
         }
         .eraseToAnyView()
     }
 }
-
 
 
 struct ImageLoader: View {
@@ -74,7 +72,7 @@ struct ImageLoader: View {
             if let image = image {
                 Image(uiImage: image)
                     .resizable()
-                    .frame(height: 400)
+                    .frame(height: 500)
             } else {
                 ProgressView()
             }

@@ -15,6 +15,7 @@ class ImageLoaderVM: ObservableObject {
     @Published var isLoading = true
     @Published var url: URL
     @Published var imgKey: String
+ 
     var cancellables = Set<AnyCancellable>()
     let cache = CacheManager.shared
     
@@ -48,4 +49,5 @@ class ImageLoaderVM: ObservableObject {
             }
             .store(in: &cancellables)
     }
+ 
 }
