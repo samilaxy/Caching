@@ -98,6 +98,7 @@ struct SavedImageView: View {
             }
         }
         
+
     func setImage() {
         DispatchQueue.main.async {
             if let img = images[index].blur {

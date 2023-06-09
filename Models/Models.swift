@@ -19,9 +19,3 @@ struct UnsplashImageUrls: Decodable {
     let small: String
     let thumb: String
 }
-
-struct ButtonItem: Identifiable {
-    var id: Int
-    var name: String
-    var icon: String
-}

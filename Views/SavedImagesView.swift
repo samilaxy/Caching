@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SavedImagesView: View {
+    @StateObject var viewModel =  ImageUtilities()
     @State private var route = false
     @State private var gridLayout: [GridItem] = [ GridItem(.flexible()) ]
     @Environment(\.managedObjectContext) private var viewContext
