@@ -320,6 +320,7 @@ struct ImageEditView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
+    var height = 400
     @State var image: UIImage = UIImage(systemName: "photo")!
     var body: some View {
         VStack {
@@ -466,7 +467,7 @@ struct ImageEditView: View {
         do {
             try self.moc.save() // Save the changes to Core Data
             editViewModel.showAlert = true
-                // presentationMode.wrappedValue.dismiss()
+            presentationMode.wrappedValue.dismiss()
         } catch {
                 // Handle the error
             print("Failed to save image: \(error)")

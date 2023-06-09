@@ -82,7 +82,7 @@ class ImageEditViewModel: ObservableObject {
                 isMenuOpen = false
             case 4:
                 rotateValue += 1
-                orientation = imageOrientation(from: rotateValue)
+                rotateImage()
             case 5:
                 revertImage()
             default:
@@ -94,23 +94,5 @@ class ImageEditViewModel: ObservableObject {
         let orientations: [UIImage.Orientation] = [.right, .down, .left, .up]
         orientation = orientations[rotateValue - 1]
         image = imgUitility.rotateImage(image: image, rotation: orientation) ?? originalImg!
-    }
-    private func imageOrientation(from rotateValue: Int) -> UIImage.Orientation {
-        let orientation: UIImage.Orientation
-        
-        switch rotateValue {
-            case 0:
-                orientation = .right
-            case 1:
-                orientation = .down
-            case 2:
-                orientation = .left
-            case 3:
-                orientation = .up
-            default:
-                orientation = .right
-        }
-        
-        return orientation
     }
 }
