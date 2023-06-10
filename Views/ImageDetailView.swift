@@ -9,59 +9,46 @@ import SwiftUI
 import Combine
 
 struct ImageDetailView: View {
-    var images: [UnsplashImage]
-    @Environment(\.managedObjectContext) var managedObjectContext
     @StateObject var imageEditViewModel = ImageEditViewModel()
-    
+    var images: [ImageData]
+        //  var selectedIndex: Int
+    @State var currentIndex: Int = 0
     @State private var route = false
-    var selectedIndex: Int
-    @State private var currentIndex: Int = 0
-    @State private var image: UIImage? = nil // Add default value
     
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
             Spacer()
-
             TabView(selection: $currentIndex) {
                 ForEach(images.indices, id: \.self) { index in
-                    loadImage(at: index)
-                        .tag(index)
+                    if let uiImage = images[index].img {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .frame(height: 450)
+                            .tag(index)
+                            .onAppear {
+                                currentIndex = index
+                            }
+                    }
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .navigationDestination(isPresented: $route) {
+                ImageEditView(editViewModel: imageEditViewModel)
+            }
             Spacer()
         }
-        .padding(.bottom, 30)
-        .onAppear {
-            currentIndex = selectedIndex
-            loadImage(at: currentIndex)
-        }
-        .navigationDestination(isPresented: $route, destination: {
-            ImageEditView(editViewModel: imageEditViewModel)
-        })
+        .padding(.bottom, 40)
         .navigationBarItems(trailing: Button(action: {
-            if let image = image {
-               // imageEditViewModel.image = image
+            if currentIndex < images.count {
+                imageEditViewModel.image = images[currentIndex].img!
                 route = true
             }
-        }){
+        }) {
             Image(systemName: "square.and.pencil")
         })
     }
-    
-    func loadImage(at index: Int) -> some View {
-        let urlString = images[index].urls.regular
-        guard let url = URL(string: urlString) else { return AnyView(EmptyView()) }
-        
-        return ImageLoader(url: url) { image in
-            self.image = image
-        }
-        .eraseToAnyView()
-    }
 }
-
 
 struct ImageLoader: View {
     let url: URL

@@ -60,7 +60,7 @@ struct HomeView: View {
             .padding(.trailing, 4)
             .navigationBarTitle("Image FX")
             .navigationDestination(isPresented: $isShowingImageDetail) {
-                ImageDetailView1(images: imageArray, currentIndex: selectedImageIndex)
+                ImageDetailView(images: imageArray, currentIndex: selectedImageIndex)
             }
         }
     }
