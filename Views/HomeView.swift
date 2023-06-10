@@ -27,7 +27,7 @@ struct HomeView: View {
                 LazyVGrid(columns: Array(repeating: .init(.flexible()), count: gridLayout.count % 3 + 1), alignment: .center, spacing: 10) {
                     ForEach(images.indices, id: \.self) { index in
                         if let uiImage = images[index].blur {
-                            ZStack {
+                            ZStack(alignment: .bottomTrailing) {
                                 Image(uiImage: uiImage as! UIImage)
                                     .resizable()
                                     .frame(height: 200)
@@ -42,15 +42,22 @@ struct HomeView: View {
                                     .frame(height: 200)
                                     .padding(.all, 4)
                                     .opacity(isShowDelete ? 1 : 0)
-                                Button {
-                                    if selectedImageIndex < images.count {
-                                        let image = images[selectedImageIndex]
-                                        deleteImage(image)
-                                        route = true
+                                VStack {
+                                    Button {
+                                        if selectedImageIndex < images.count {
+                                            let image = images[selectedImageIndex]
+                                            if isShowDelete {
+                                                deleteImage(image)
+                                            } else {
+                                                
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: isShowDelete ? "trash.circle.fill" : "heart.circle.fill")
+                                            .foregroundColor(.red)
+                                            .padding()
                                     }
-                                } label: {
-                                    Image(systemName: "square.and.pencil")
-                                }.opacity(isShowDelete ? 1 : 0)
+                                }
                             }
                         }
                     }
@@ -59,6 +66,11 @@ struct HomeView: View {
             .padding(.leading, 4)
             .padding(.trailing, 4)
             .navigationBarTitle("Image FX")
+            .navigationBarItems(trailing: Button(action: {
+                isShowDelete.toggle()
+            }) {
+                Image(systemName: isShowDelete ? "list.bullet.circle.fill" : "list.bullet.circle")
+            })
             .navigationDestination(isPresented: $isShowingImageDetail) {
                 ImageDetailView(images: imageArray, currentIndex: selectedImageIndex)
             }
