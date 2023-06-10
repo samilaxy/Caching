@@ -11,10 +11,13 @@ import CoreData
 @main
 struct CachingApp: App {
     let persistenceController = PersistenceController.shared
+    let viewContext = PersistenceController.shared.container.viewContext
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, viewContext)
+                .environmentObject(ViewModel(viewContext: viewContext))
         }
     }
 }

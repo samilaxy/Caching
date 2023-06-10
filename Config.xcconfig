@@ -7,8 +7,8 @@
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
-ApiKey = 123QldWc5yMotWuyujtIkRF6yye1_kxNhvJwmw3kW3M
-BaseURL = api.unsplash.com/photos/random?count=30
+ApiKey = 5wxq18hY-3SSsHHFewvuBtQDplHk0TfGLUapmNzQWX4
+BaseURL = api.unsplash.com/photos/random?count=1
 
 Secret = 5wxq18hY-3SSsHHFewvuBtQDplHk0TfGLUapmNzQWX4
 access = kmpk3LY3gY1LWqlxz3ZcTrE0TUGqKugofGPDsL9gdE8

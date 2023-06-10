@@ -20,7 +20,6 @@ struct ImageEditView: View {
             ZStack {
                 Image(uiImage: editViewModel.image)
                     .resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
                     .frame(height: 400)
                     .padding()
                     .scaleEffect(editViewModel.zoomScale)
@@ -35,9 +34,6 @@ struct ImageEditView: View {
                             editViewModel.originalImg = editViewModel.image
                         }
                     }
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: 100, height: 100)
             }
             VStack {
                 HStack(spacing: 10) {
@@ -65,7 +61,7 @@ struct ImageEditView: View {
                                 DispatchQueue.main.async {
                                         //  image = viewModel.image
                                     withAnimation(.easeInOut(duration: 0.5)) {
-                                        button.id == 6 ? saveImage(img: editViewModel.image) : editViewModel.editOption(item: button)
+                                        button.id == 6 ? saveImage() : editViewModel.editOption(item: button)
                                     }
                                 }
                             } label: {
@@ -149,7 +145,7 @@ struct ImageEditView: View {
             return AnyView(EmptyView())
         }
     }
-    private func saveImage(img: UIImage) {
+    private func saveImage() {
             // Create a new Image entity
         let newImage = ImageData(context: moc)
         newImage.img = editViewModel.originalImg

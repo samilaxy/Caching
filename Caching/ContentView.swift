@@ -10,16 +10,15 @@ import Combine
 
 struct ContentView: View {
     
-    let viewModel = ViewModel()
+ 
     @State var selection = 0
     
     var body: some View {
         
         
         TabView(selection: $selection) {
-                //NavigationView {
-            ImageGridView(viewModel: viewModel)
-                //}
+            
+            HomeView()
                 .tabItem {
                     Image(systemName: "house.circle")
                     Text("Home")
