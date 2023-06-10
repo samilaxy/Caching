@@ -42,15 +42,22 @@ struct HomeView: View {
                                     .frame(height: 200)
                                     .padding(.all, 4)
                                     .opacity(isShowDelete ? 1 : 0)
-                                Button {
-                                    if selectedImageIndex < images.count {
-                                        let image = images[selectedImageIndex]
-                                        deleteImage(image)
-                                        route = true
+                                ZStack(alignment: .bottomTrailing) {
+                                    Spacer()
+                                    Button {
+                                        if selectedImageIndex < images.count {
+                                            let image = images[selectedImageIndex]
+                                            if isShowDelete {
+                                                deleteImage(image)
+                                            } else {
+                                                
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: isShowDelete ? "trash.fill" : "heart.circle.fill")
+                                            .foregroundColor(.red)
                                     }
-                                } label: {
-                                    Image(systemName: "square.and.pencil")
-                                }.opacity(isShowDelete ? 1 : 0)
+                                }
                             }
                         }
                     }
@@ -60,12 +67,22 @@ struct HomeView: View {
             .padding(.trailing, 4)
             .navigationBarTitle("Image FX")
             .navigationDestination(isPresented: $isShowingImageDetail) {
-                ImageDetailView1(images: imageArray, currentIndex: selectedImageIndex)
+                ImageDetailView(images: imageArray, currentIndex: selectedImageIndex)
             }
         }
     }
     
     private func deleteImage(_ image: ImageData) {
+        viewContext.delete(image)
+        
+        do {
+            try viewContext.save()
+        } catch {
+                // Handle the error gracefully
+            print("Failed to delete image: \(error)")
+        }
+    }
+    private func favoriteImage(_ image: ImageData) {
         viewContext.delete(image)
         
         do {
@@ -84,45 +101,5 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 
-struct ImageDetailView1: View {
-    @StateObject var imageEditViewModel = ImageEditViewModel()
-    var images: [ImageData]
-  //  var selectedIndex: Int
-    @State var currentIndex: Int = 0
-    @State private var route = false
-    
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            TabView(selection: $currentIndex) {
-                ForEach(images.indices, id: \.self) { index in
-                    if let uiImage = images[index].img {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(height: 450)
-                            .tag(index)
-                            .onAppear {
-                                currentIndex = index
-                            }
-                    }
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .navigationDestination(isPresented: $route) {
-                ImageEditView(editViewModel: imageEditViewModel)
-            }
-            Spacer()
-        }
-        .padding(.bottom, 40)
-        .navigationBarItems(trailing: Button(action: {
-            if currentIndex < images.count {
-                imageEditViewModel.image = images[currentIndex].img!
-                route = true
-            }
-        }) {
-            Image(systemName: "square.and.pencil")
-        })
-    }
-}
+
 
