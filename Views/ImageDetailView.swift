@@ -16,6 +16,7 @@ struct ImageDetailView: View {
 	@State var index: Int = 0
     @State private var route = false
     @State var image: UIImage? = nil
+	@State var selectedImg: UIImage? = nil
     
     var body: some View {
         VStack {
@@ -30,12 +31,13 @@ struct ImageDetailView: View {
                             .padding(5)
                             .onAppear {
 								self.index = index
-                                image = uiImage
+								image = uiImage
                             }
                             .tag(index)
                     }
 				}.onAppear {
 					currentIndex = index
+					image = selectedImg
 				}
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
