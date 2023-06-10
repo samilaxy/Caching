@@ -32,19 +32,7 @@ class ViewModel: ObservableObject {
                 self.isLoading = false
             } receiveValue: { [weak self] returnedImages in
                 self?.images.append(contentsOf: returnedImages)
-                self?.saveImagesToCoreData(returnedImages) // Save images to Core Data
-            }
-            .store(in: &cancellables)
-    }
-    
-    func getMoreImages() {
-        self.isLoading = true
-        networkManager.getImages()
-            .sink { _ in
-                self.isLoading = false
-            } receiveValue: { [weak self] returnedImages in
-                self?.images.append(contentsOf: returnedImages)
-                self?.saveImagesToCoreData(returnedImages) // Save images to Core Data
+            //    self?.saveImagesToCoreData(returnedImages) // Save images to Core Data
             }
             .store(in: &cancellables)
     }

@@ -13,8 +13,9 @@ struct ImageDetailView: View {
     var images: [ImageData]
         //  var selectedIndex: Int
     @State var currentIndex: Int = 0
+	@State var index: Int = 0
     @State private var route = false
-    
+    @State var image: UIImage? = nil
     
     var body: some View {
         VStack {
@@ -24,13 +25,18 @@ struct ImageDetailView: View {
                     if let uiImage = images[index].img {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .frame(height: 450)
-                            .tag(index)
+                          //  .frame(width: UIScreen.main.bounds.width, height: nil)
+                            .aspectRatio(contentMode: .fit)
+                            .padding(5)
                             .onAppear {
-                                currentIndex = index
+								self.index = index
+                                image = uiImage
                             }
+                            .tag(index)
                     }
-                }
+				}.onAppear {
+					currentIndex = index
+				}
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .navigationDestination(isPresented: $route) {
@@ -39,60 +45,20 @@ struct ImageDetailView: View {
             Spacer()
         }
         .padding(.bottom, 40)
-        .navigationBarItems(trailing: Button(action: {
+        .navigationBarItems(trailing:
+                                Button(action: {
             if currentIndex < images.count {
-                imageEditViewModel.image = images[currentIndex].img!
-                route = true
+                image.map { imageEditViewModel.image = $0
+                    route = true }
             }
         }) {
             Image(systemName: "square.and.pencil")
         })
-    }
-}
-
-struct ImageLoader: View {
-    let url: URL
-    let imageLoaded: (UIImage?) -> Void
-    
-    var body: some View {
-        Group {
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(height: 500)
-            } else {
-                ProgressView()
-            }
-        }
         .onAppear {
-            loadImage(from: url)
-        }
-    }
-    
-    @State private var image: UIImage?
-    
-    private func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                print("Failed to load image: \(error)")
-                return
-            }
-
-            if let data = data, let loadedImage = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    image = loadedImage
-                    imageLoaded(loadedImage)
-                }
+            withAnimation(.easeInOut(duration: 0.5)) {
+                    // Additional animations or actions when the view appears
             }
         }
-        .resume()
-    }
-}
-
-
-extension View {
-    func eraseToAnyView() -> AnyView {
-        AnyView(self)
     }
 }
 
