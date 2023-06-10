@@ -17,7 +17,7 @@ struct CachingApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, viewContext)
-                .environmentObject(ViewModel(viewContext: viewContext))
+               .environmentObject(ViewModel(viewContext: viewContext))
         }
     }
 }
