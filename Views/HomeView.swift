@@ -27,7 +27,7 @@ struct HomeView: View {
                 LazyVGrid(columns: Array(repeating: .init(.flexible()), count: gridLayout.count % 3 + 1), alignment: .center, spacing: 10) {
                     ForEach(images.indices, id: \.self) { index in
                         if let uiImage = images[index].blur {
-                            ZStack {
+                            ZStack(alignment: .bottomTrailing) {
                                 Image(uiImage: uiImage as! UIImage)
                                     .resizable()
                                     .frame(height: 200)
@@ -42,8 +42,7 @@ struct HomeView: View {
                                     .frame(height: 200)
                                     .padding(.all, 4)
                                     .opacity(isShowDelete ? 1 : 0)
-                                ZStack(alignment: .bottomTrailing) {
-                                    Spacer()
+                                VStack {
                                     Button {
                                         if selectedImageIndex < images.count {
                                             let image = images[selectedImageIndex]
@@ -54,8 +53,9 @@ struct HomeView: View {
                                             }
                                         }
                                     } label: {
-                                        Image(systemName: isShowDelete ? "trash.fill" : "heart.circle.fill")
+                                        Image(systemName: isShowDelete ? "trash.circle.fill" : "heart.circle.fill")
                                             .foregroundColor(.red)
+                                            .padding()
                                     }
                                 }
                             }
@@ -66,6 +66,12 @@ struct HomeView: View {
             .padding(.leading, 4)
             .padding(.trailing, 4)
             .navigationBarTitle("Image FX")
+            .padding(.bottom, 40)
+            .navigationBarItems(trailing: Button(action: {
+                isShowDelete.toggle()
+            }) {
+                Image(systemName: isShowDelete ? "list.bullet.circle.fill" : "list.bullet.circle")
+            })
             .navigationDestination(isPresented: $isShowingImageDetail) {
                 ImageDetailView(images: imageArray, currentIndex: selectedImageIndex)
             }
