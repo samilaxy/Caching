@@ -9,16 +9,19 @@ import SwiftUI
 
 struct ImageEditView: View {
     @StateObject var editViewModel: ImageEditViewModel
+	@State var frameItem: ButtonItem?
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     var height = 400
     @State var image: UIImage = UIImage(systemName: "photo")!
+	@State var isframed: Bool = false
+	@State var frameImg = ""
     var body: some View {
         VStack {
             Spacer()
             ZStack {
-                Image(uiImage: editViewModel.image)
+				Image(uiImage: editViewModel.image)
                     .resizable()
                     .frame(height: 400)
                     .padding()
@@ -28,13 +31,22 @@ struct ImageEditView: View {
                             editViewModel.zoomScale = value.magnitude
                         }
                     )
-                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                    .onAppear {
-                        if editViewModel.originalImg == nil {
-                            editViewModel.originalImg = editViewModel.image
-                        }
-                    }
+				if isframed {
+					Image(frameImg)
+						.resizable()
+						.frame(height: 400)
+						.padding()
+				}
             }
+			.shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+			.onAppear {
+					//	editViewModel.image = image
+				
+				if editViewModel.originalImg == nil {
+					editViewModel.originalImg = editViewModel.image
+				}
+			}
+			
             VStack {
                 HStack(spacing: 10) {
                     Spacer()
@@ -123,7 +135,11 @@ struct ImageEditView: View {
                                     if item.id == 5 {
                                         editViewModel.isMenuOpen = false
                                     } else {
-                                        editViewModel.frameImage(item: item)
+                                      //  editViewModel.frameImage(item: item)
+										isframed = true
+										frameItem = item
+										frameImg = item.icon
+										print("frameImg:",frameImg)
                                     }
                                 }) {
                                     HStack {
@@ -147,6 +163,9 @@ struct ImageEditView: View {
     }
     private func saveImage() {
             // Create a new Image entity
+		if isframed {
+			editViewModel.frameImage(item: frameItem!)
+		}
         let newImage = ImageData(context: moc)
         newImage.img = editViewModel.originalImg
         newImage.blur = editViewModel.image

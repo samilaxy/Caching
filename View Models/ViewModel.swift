@@ -32,7 +32,9 @@ class ViewModel: ObservableObject {
                 self.isLoading = false
             } receiveValue: { [weak self] returnedImages in
                 self?.images.append(contentsOf: returnedImages)
-            //    self?.saveImagesToCoreData(returnedImages) // Save images to Core Data
+				DispatchQueue.global().async {
+					self?.saveImagesToCoreData(returnedImages) // Save images to Core Data
+				}
             }
             .store(in: &cancellables)
     }
@@ -54,7 +56,7 @@ class ViewModel: ObservableObject {
                     print("Invalid image data")
                     return
                 }
-                
+				print("saving to core..")
                 let imageEntity = ImageData(context: self.viewContext)
                 imageEntity.img = uiImage
                 imageEntity.blur = uiImage

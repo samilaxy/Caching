@@ -145,6 +145,7 @@ struct ImageUtilities {
         if let size = getImageDimensions(image: image) {
             width = size.width
             height = size.height
+			print("size:",size)
         }
         let frameSize = CGSize(width: width, height: height)
         UIGraphicsBeginImageContextWithOptions(imageSize, false, image.scale)

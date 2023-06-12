@@ -26,10 +26,9 @@ struct ContentView: View {
                 .tag(0)
             
             SavedImagesView()
-                .navigationTitle("Saved")
                 .tabItem {
                     Image(systemName: "text.below.photo.fill")
-                    Text("Saved")
+                    Text("Fovarites")
                 }
                 .tag(1)
         }
