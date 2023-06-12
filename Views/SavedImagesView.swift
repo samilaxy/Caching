@@ -41,7 +41,7 @@ struct SavedImagesView: View {
             }
             .padding(.leading, 4)
             .padding(.trailing, 4)
-            .navigationBarTitle("Saved Images", displayMode: .inline)
+            .navigationBarTitle("Favorites", displayMode: .inline)
             .sheet(isPresented: $isShowingImageDetail) {
                 SavedImageView(image: $selectedImage, images: $imageArray)
             }

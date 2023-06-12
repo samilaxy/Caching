@@ -9,58 +9,75 @@ import SwiftUI
 import Combine
 
 struct ImageDetailView: View {
-    @StateObject var imageEditViewModel = ImageEditViewModel()
-    var images: [ImageData]
-        //  var selectedIndex: Int
-    @State var currentIndex: Int = 0
+	@StateObject var imageEditViewModel = ImageEditViewModel()
+	var images: [ImageData]
+		//var selectedIndex: Int
+	@State var currentIndex: Int = 0
 	@State var index: Int = 0
-    @State private var route = false
-    @State var image: UIImage? = nil
+	@State private var route = false
+	@State var image: UIImage? = nil
 	@State var selectedImg: UIImage? = nil
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            TabView(selection: $currentIndex) {
-                ForEach(images.indices, id: \.self) { index in
-                    if let uiImage = images[index].img {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                          //  .frame(width: UIScreen.main.bounds.width, height: nil)
-                            .aspectRatio(contentMode: .fit)
-                            .padding(5)
-                            .onAppear {
-								self.index = index
-								image = uiImage
-                            }
-                            .tag(index)
-                    }
+	
+	var body: some View {
+		VStack {
+			Spacer()
+			TabView(selection: $currentIndex) {
+				ForEach(images.indices, id: \.self) { index in
+					if let uiImage = images[index].img {
+						Image(uiImage: uiImage)
+							.resizable()
+							.aspectRatio(contentMode: .fit)
+							.padding(5)
+							.onAppear {
+								DispatchQueue.main.async {
+									//self.index = index
+									image = uiImage
+								}
+								print("ForEach:",index)
+							}
+							.tag(index)
+					}
 				}.onAppear {
-					currentIndex = index
-					image = selectedImg
+					DispatchQueue.main.async {
+						currentIndex = index
+					}
 				}
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .navigationDestination(isPresented: $route) {
-                ImageEditView(editViewModel: imageEditViewModel)
-            }
-            Spacer()
-        }
-        .padding(.bottom, 40)
-        .navigationBarItems(trailing:
-                                Button(action: {
-            if currentIndex < images.count {
-                image.map { imageEditViewModel.image = $0
-                    route = true }
-            }
-        }) {
-            Image(systemName: "square.and.pencil")
-        })
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.5)) {
-                    // Additional animations or actions when the view appears
-            }
-        }
-    }
+				.onDisappear{
+					currentIndex = index
+				//	image.map { imageEditViewModel.image = $0 }
+				}
+			}
+			.onChange(of: index) { newIndex in
+				if let uiImage = images[newIndex].img {
+					image = uiImage
+					
+					imageEditViewModel.index = index
+					print("onChange:",currentIndex)
+				}
+			}
+			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+			.navigationBarItems(trailing:
+									Button(action: {
+				if currentIndex < images.count {
+					image = images[currentIndex].img
+					image.map { imageEditViewModel.image = $0 }
+					route = true
+					print("navigationBarItems:",currentIndex)
+				}
+			}) {
+				Image(systemName: "square.and.pencil")
+			}
+			)
+		}
+		.padding(.bottom, 40)
+		.navigationBarTitleDisplayMode(.inline)
+		
+		.navigationDestination(isPresented: $route) {
+			image.map { ImageEditView(editViewModel: imageEditViewModel, image: $0) }
+		}
+	}
 }
+
+
+
 

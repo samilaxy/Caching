@@ -19,6 +19,7 @@ struct HomeView: View {
     
     @State private var selectedImageIndex: Int = 0
     @State private var isShowDelete = false
+	@State private var isFavorite = false
     @State private var isShowingImageDetail = false
     @State private var imageArray: [ImageData] = []
     var body: some View {
@@ -49,13 +50,19 @@ struct HomeView: View {
                                             if isShowDelete {
                                                 deleteImage(image)
                                             } else {
-                                                
+												isFavorite.toggle()
                                             }
                                         }
                                     } label: {
-                                        Image(systemName: isShowDelete ? "trash.circle.fill" : "heart.circle.fill")
-                                            .foregroundColor(.red)
-                                            .padding()
+										if isShowDelete {
+											Image(systemName: "trash.circle.fill")
+												.foregroundColor(.red)
+												.padding()
+										}else {
+											Image(systemName: "heart.circle.fill")
+												.foregroundColor(isFavorite ? .red : .gray)
+												.padding()
+										}
                                     }
                                 }
                             }

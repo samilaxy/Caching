@@ -14,6 +14,7 @@ class ImageEditViewModel: ObservableObject {
     @Published var image: UIImage = UIImage(systemName: "photo")!
     @Published var isProgress = false
     @Published var isDone = false
+	@Published var index = 0
     @Published var isBlur = false
     @Published var showAlert = false
     @Published var isMenuOpen = false
@@ -21,6 +22,8 @@ class ImageEditViewModel: ObservableObject {
     @Published var rotateValue = 0
     @Published var orientation: UIImage.Orientation = .right
     @Published var zoomScale: CGFloat = 1.0
+	@Published var isframed: Bool = false
+	@Published var frameImg = ""
     @Environment(\.colorScheme) var colorScheme
     let menuItems = [
         ButtonItem(id: 1, name: "Black Frame", icon: "BlackFrame"),
@@ -56,7 +59,7 @@ class ImageEditViewModel: ObservableObject {
             }
         }
     }
-    
+     
     func revertImage() {
         if let img = originalImg {
             image = img
@@ -69,6 +72,7 @@ class ImageEditViewModel: ObservableObject {
     func frameImage(item: ButtonItem) {
      //   if let img = image {
             image = imgUitility.frameImage(item: item, image: image)
+		frameImg = item.icon
      //   }
     }
     
