@@ -23,15 +23,15 @@ struct ImageDetailView: View {
 			Spacer()
 			TabView(selection: $currentIndex) {
 				ForEach(images.indices, id: \.self) { index in
-					if let uiImage = images[index].img {
-						Image(uiImage: uiImage)
+					if let uiImage = images[index].blur {
+						Image(uiImage: uiImage as! UIImage)
 							.resizable()
 							.aspectRatio(contentMode: .fit)
 							.padding(5)
 							.onAppear {
 								DispatchQueue.main.async {
 									//self.index = index
-									image = uiImage
+									image = uiImage as? UIImage
 								}
 								print("ForEach:",index)
 							}
@@ -50,7 +50,7 @@ struct ImageDetailView: View {
 			.onChange(of: index) { newIndex in
 				if let uiImage = images[newIndex].img {
 					image = uiImage
-					
+					image.map { imageEditViewModel.image = $0 }
 					imageEditViewModel.index = index
 					print("onChange:",currentIndex)
 				}
@@ -71,7 +71,6 @@ struct ImageDetailView: View {
 		}
 		.padding(.bottom, 40)
 		.navigationBarTitleDisplayMode(.inline)
-		
 		.navigationDestination(isPresented: $route) {
 			image.map { ImageEditView(editViewModel: imageEditViewModel, image: $0) }
 		}

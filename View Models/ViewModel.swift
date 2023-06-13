@@ -61,7 +61,7 @@ class ViewModel: ObservableObject {
                 imageEntity.img = uiImage
                 imageEntity.blur = uiImage
                 imageEntity.createAt = Date()
-                
+				imageEntity.favorite = false
                     // Save any other properties you want to store
                 print("Save image to Core Data: \(uiImage)")
                 do {

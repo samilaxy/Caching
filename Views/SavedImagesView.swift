@@ -14,6 +14,7 @@ struct SavedImagesView: View {
     
     @FetchRequest(entity: ImageData.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \ImageData.createAt, ascending: false)],
+				  predicate: NSPredicate(format: "favorite == true"),
                   animation: .default)
     private var images: FetchedResults<ImageData>
     @State private var imageArray: [ImageData] = []
