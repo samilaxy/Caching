@@ -19,7 +19,6 @@ struct HomeView: View {
 	
 	@State private var selectedImageIndex: Int = 0
 	@State private var isShowDelete = false
-	@State private var isFavorite = false
 	@State private var isShowingImageDetail = false
 	@State private var imageArray: [ImageData] = []
 	var body: some View {
@@ -47,13 +46,13 @@ struct HomeView: View {
 									.opacity(isShowDelete ? 1 : 0)
 								VStack {
 									Button {
-										if selectedImageIndex < images.count {
-											let image = images[selectedImageIndex]
+										if index < images.count {
+											let image = images[index]
 											if isShowDelete {
 												deleteImage(image)
 											} else {
-												isFavorite.toggle()
-												updateFavorite(for: image, isFavorite: isFavorite)
+												images[index].favorite.toggle()
+												updateFavorite(for: image, isFavorite: images[index].favorite)
 											}
 										}
 									} label: {
@@ -63,7 +62,7 @@ struct HomeView: View {
 												.padding()
 										} else {
 											Image(systemName: "heart.circle.fill")
-												.foregroundColor(isFavorite ? .red : .gray)
+												.foregroundColor(images[index].favorite ? .red : .gray)
 												.padding()
 										}
 									}
