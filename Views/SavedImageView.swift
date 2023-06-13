@@ -23,9 +23,8 @@ struct SavedImageView: View {
                 if let img = selectImg {
                     Image(uiImage: img)
                         .resizable()
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .frame(height: 400)
-                        .padding()
+						.aspectRatio(contentMode: .fit)
+						.padding(5)
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                         .offset(x: offset)
                         .gesture(

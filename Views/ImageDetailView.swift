@@ -10,7 +10,8 @@ import Combine
 
 struct ImageDetailView: View {
 	@StateObject var imageEditViewModel = ImageEditViewModel()
-	var images: [ImageData]
+	@Environment(\.managedObjectContext) private var viewContext
+	var images: FetchedResults<ImageData>
 		//var selectedIndex: Int
 	@State var currentIndex: Int = 0
 	@State var index: Int = 0
@@ -50,22 +51,33 @@ struct ImageDetailView: View {
 			.onChange(of: index) { newIndex in
 				if let uiImage = images[newIndex].img {
 					image = uiImage
-					image.map { imageEditViewModel.image = $0 }
+				//	image.map { imageEditViewModel.image = $0 }
 					imageEditViewModel.index = index
 					print("onChange:",currentIndex)
 				}
 			}
 			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 			.navigationBarItems(trailing:
-									Button(action: {
-				if currentIndex < images.count {
-					image = images[currentIndex].img
-					image.map { imageEditViewModel.image = $0 }
-					route = true
-					print("navigationBarItems:",currentIndex)
+									HStack {
+				Button(action: {
+					if currentIndex < images.count {
+						images[currentIndex].favorite.toggle()
+						updateFavorite(for: images[currentIndex], isFavorite: images[currentIndex].favorite)
+					}
+				}) {
+					Image(systemName: "heart.fill")
+						.foregroundColor(images[currentIndex].favorite ? .red : .gray)
 				}
-			}) {
-				Image(systemName: "square.and.pencil")
+				Button(action: {
+					if currentIndex < images.count {
+						image = images[currentIndex].img
+						image.map { imageEditViewModel.image = $0 }
+						route = true
+						print("navigationBarItems:",currentIndex)
+					}
+				}) {
+					Image(systemName: "square.and.pencil")
+				}
 			}
 			)
 		}
@@ -73,6 +85,18 @@ struct ImageDetailView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationDestination(isPresented: $route) {
 			image.map { ImageEditView(editViewModel: imageEditViewModel, image: $0) }
+		}
+	}
+	private func updateFavorite(for imageEntity: ImageData, isFavorite: Bool) {
+			// Update the favorite property of the ImageData object
+		imageEntity.favorite = isFavorite
+		
+			// Save the changes to Core Data
+		do {
+			try viewContext.save()
+		} catch {
+				// Handle the error gracefully
+			print("Failed to update favorite status: \(error)")
 		}
 	}
 }
