@@ -16,7 +16,7 @@ struct ImageDetailView: View {
 	@State var currentIndex: Int = 0
 	@State var index: Int = 0
 	@State private var route = false
-	@State var image: UIImage? = nil
+	@State var image: ImageData?
 	@State var selectedImg: UIImage? = nil
 	
 	var body: some View {
@@ -32,7 +32,7 @@ struct ImageDetailView: View {
 							.onAppear {
 								DispatchQueue.main.async {
 									//self.index = index
-									image = uiImage as? UIImage
+								//	image = uiImage as? UIImage
 								}
 								print("ForEach:",index)
 							}
@@ -50,9 +50,9 @@ struct ImageDetailView: View {
 			}
 			.onChange(of: index) { newIndex in
 				if let uiImage = images[newIndex].img {
-					image = uiImage
+				//	image = uiImage
 				//	image.map { imageEditViewModel.image = $0 }
-					imageEditViewModel.index = index
+				// imageEditViewModel.index = index
 					print("onChange:",currentIndex)
 				}
 			}
@@ -70,9 +70,9 @@ struct ImageDetailView: View {
 				}
 				Button(action: {
 					if currentIndex < images.count {
-						image = images[currentIndex].img
-						image.map { imageEditViewModel.image = $0 }
+						images[currentIndex].blur.map { imageEditViewModel.image = $0 as! UIImage }
 						route = true
+						image = images[currentIndex]
 						print("navigationBarItems:",currentIndex)
 					}
 				}) {
@@ -84,7 +84,7 @@ struct ImageDetailView: View {
 		.padding(.bottom, 40)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationDestination(isPresented: $route) {
-			image.map { ImageEditView(editViewModel: imageEditViewModel, image: $0) }
+			image.map{	 ImageEditView(editViewModel: imageEditViewModel, image: $0) }
 		}
 	}
 	private func updateFavorite(for imageEntity: ImageData, isFavorite: Bool) {
