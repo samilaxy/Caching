@@ -35,9 +35,6 @@ struct HomeView: View {
 									.onTapGesture {
 										selectedImageIndex = index
 										isShowingImageDetail = true
-										imageArray = Array(images)
-										isFavorite = images[index].favorite
-										print(isFavorite)
 									}
 								
 								Color.black.opacity(0.2)
@@ -81,7 +78,7 @@ struct HomeView: View {
 				Image(systemName: isShowDelete ? "list.bullet.circle.fill" : "list.bullet.circle")
 			})
 			.navigationDestination(isPresented: $isShowingImageDetail) {
-				ImageDetailView(images: imageArray, currentIndex: selectedImageIndex)
+				ImageDetailView(images: images, currentIndex: selectedImageIndex)
 			}
 		}
 	}
