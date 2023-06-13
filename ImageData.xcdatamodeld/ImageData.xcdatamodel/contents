@@ -3,6 +3,7 @@
     <entity name="ImageData" representedClassName="ImageData" syncable="YES">
         <attribute name="blur" optional="YES" attributeType="Transformable" valueTransformerName="UIImageTransformer"/>
         <attribute name="createAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="Transformable" valueTransformerName="UIImageTransformer" customClassName="UIImage"/>
     </entity>
 </model>

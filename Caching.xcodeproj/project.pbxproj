@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490C3B802A376BD000054157 /* ImageData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490C3B7E2A376BD000054157 /* ImageData+CoreDataClass.swift */; };
+		490C3B812A376BD000054157 /* ImageData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490C3B7F2A376BD000054157 /* ImageData+CoreDataProperties.swift */; };
 		491F31AF2A2FD3CE00836310 /* ImageEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F31AE2A2FD3CD00836310 /* ImageEditViewModel.swift */; };
 		491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7DD29D2E88A00E2D6B2 /* CachingApp.swift */; };
 		491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491FC7DF29D2E88A00E2D6B2 /* ContentView.swift */; };
@@ -33,8 +35,6 @@
 		497C4F262A20EDB400E7850C /* SavedImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F242A20EBF400E7850C /* SavedImagesView.swift */; };
 		497C4F302A21094100E7850C /* ImageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F2E2A21094100E7850C /* ImageData.xcdatamodeld */; };
 		497C4F322A210B8900E7850C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F312A210B8900E7850C /* PersistenceController.swift */; };
-		497C4F352A215AAE00E7850C /* ImageData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F332A215AAE00E7850C /* ImageData+CoreDataClass.swift */; };
-		497C4F362A215AAE00E7850C /* ImageData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */; };
 		497C4F382A23BB4D00E7850C /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F372A23BB4C00E7850C /* UIImageTransformer.swift */; };
 		497C4F3A2A23D58A00E7850C /* SavedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C4F392A23D58A00E7850C /* SavedImageView.swift */; };
 		49C272B22A337F840048632A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C272B12A337F840048632A /* HomeView.swift */; };
@@ -58,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		490C3B7E2A376BD000054157 /* ImageData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageData+CoreDataClass.swift"; path = "Views/ImageData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		490C3B7F2A376BD000054157 /* ImageData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageData+CoreDataProperties.swift"; path = "Views/ImageData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		490DA12D2A2755C900F05278 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		490DA12E2A27565800F05278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		491F31AE2A2FD3CD00836310 /* ImageEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewModel.swift; sourceTree = "<group>"; };
@@ -89,8 +91,6 @@
 		497C4F242A20EBF400E7850C /* SavedImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImagesView.swift; sourceTree = "<group>"; };
 		497C4F2F2A21094100E7850C /* ImageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageData.xcdatamodel; sourceTree = "<group>"; };
 		497C4F312A210B8900E7850C /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		497C4F332A215AAE00E7850C /* ImageData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		497C4F372A23BB4C00E7850C /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
 		497C4F392A23D58A00E7850C /* SavedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImageView.swift; sourceTree = "<group>"; };
 		49C272B12A337F840048632A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -124,9 +124,9 @@
 		491FC7D129D2E88A00E2D6B2 = {
 			isa = PBXGroup;
 			children = (
+				490C3B7E2A376BD000054157 /* ImageData+CoreDataClass.swift */,
+				490C3B7F2A376BD000054157 /* ImageData+CoreDataProperties.swift */,
 				490DA12D2A2755C900F05278 /* Config.xcconfig */,
-				497C4F332A215AAE00E7850C /* ImageData+CoreDataClass.swift */,
-				497C4F342A215AAE00E7850C /* ImageData+CoreDataProperties.swift */,
 				497C4F2E2A21094100E7850C /* ImageData.xcdatamodeld */,
 				497C4F142A20B42A00E7850C /* View Models */,
 				497C4F092A20B16500E7850C /* Utilities */,
@@ -394,18 +394,18 @@
 				491FC7E029D2E88A00E2D6B2 /* ContentView.swift in Sources */,
 				497C4F0D2A20B19100E7850C /* ImageCache.swift in Sources */,
 				491FC7DE29D2E88A00E2D6B2 /* CachingApp.swift in Sources */,
+				490C3B802A376BD000054157 /* ImageData+CoreDataClass.swift in Sources */,
+				490C3B812A376BD000054157 /* ImageData+CoreDataProperties.swift in Sources */,
 				497C4F0B2A20B17800E7850C /* NetworkManager.swift in Sources */,
 				497C4F182A20B42B00E7850C /* ViewModel.swift in Sources */,
 				497C4F132A20B31800E7850C /* ImageUtitlities.swift in Sources */,
 				497C4F322A210B8900E7850C /* PersistenceController.swift in Sources */,
-				497C4F352A215AAE00E7850C /* ImageData+CoreDataClass.swift in Sources */,
 				497C4F022A20AFD100E7850C /* ImageDetailView.swift in Sources */,
 				497C4F302A21094100E7850C /* ImageData.xcdatamodeld in Sources */,
 				497C4F172A20B42B00E7850C /* ImageLoaderVM.swift in Sources */,
 				497C4F112A20B30F00E7850C /* ImgFileManager.swift in Sources */,
 				497C4F0F2A20B2FA00E7850C /* ImageViewStateManager.swift in Sources */,
 				497C4F082A20B0AF00E7850C /* Models.swift in Sources */,
-				497C4F362A215AAE00E7850C /* ImageData+CoreDataProperties.swift in Sources */,
 				49C272B22A337F840048632A /* HomeView.swift in Sources */,
 				497C4F382A23BB4D00E7850C /* UIImageTransformer.swift in Sources */,
 			);
