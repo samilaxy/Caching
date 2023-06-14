@@ -41,7 +41,7 @@ class ViewModel: ObservableObject {
     
     private func saveImagesToCoreData(_ images: [UnsplashImage]) {
         for image in images {
-            guard let imageURL = URL(string: image.urls.regular) else {
+			guard let imageURL = URL(string: image.urls.regular) else {
                 print("Invalid image URL: \(image.urls.regular)")
                 continue
             }
