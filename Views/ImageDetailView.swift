@@ -34,9 +34,7 @@ struct ImageDetailView: View {
 									self.index = index
 									UserDefaults.standard.set(index, forKey: "Index")
 								print(	UserDefaults.standard.integer(forKey: "Index"))
-								//	image = uiImage as? UIImage
 								}
-								print("ForEach:",index)
 							}
 							.tag(index)
 					}
