@@ -13,7 +13,7 @@ struct ImageEditView: View {
 	@Environment(\.managedObjectContext) var moc
 	@Environment(\.presentationMode) var presentationMode
 	@Environment(\.colorScheme) var colorScheme
-	@State var image: UIImage = UIImage(systemName: "photo")!
+	@State var image: ImageData
 	@State var isframed: Bool = false
 	@State var frameImg = ""
 	var body: some View {
@@ -69,7 +69,7 @@ struct ImageEditView: View {
 							Button {
 								DispatchQueue.main.async {
 									withAnimation(.easeInOut(duration: 0.5)) {
-										button.id == 6 ? saveImage() : editViewModel.editOption(item: button)
+										button.id == 6 ? editViewModel.showAlert = true : editViewModel.editOption(item: button)
 									}
 								}
 							} label: {
@@ -98,11 +98,19 @@ struct ImageEditView: View {
 			)
 			.alert(isPresented: $editViewModel.showAlert) {
 				Alert(
-					title: Text("Image Saved"),
-					message: Text("The image has been saved successfully."),
-					dismissButton: .default(Text("OK"))
+					title: Text("Image Action"),
+					message: Text("Choose an action for the image"),
+					primaryButton: .default(Text("Update"), action: {
+							// Perform update action
+						updateImage(for: image)
+					}),
+					secondaryButton: .default(Text("Save New"), action: {
+							// Perform save new action
+						saveImage()
+					})
 				)
 			}
+
 			Spacer()
 		}
 		.padding(.bottom, 20)
@@ -169,8 +177,8 @@ struct ImageEditView: View {
 		newImage.img = editViewModel.originalImg
 		newImage.blur = editViewModel.image
 		newImage.createAt = Date()
-		newImage.favorite = true
-		image = editViewModel.image
+		newImage.favorite = false
+		
 		do {
 			try self.moc.save() // Save the changes to Core Data
 			editViewModel.showAlert = true
@@ -178,6 +186,28 @@ struct ImageEditView: View {
 		} catch {
 				// Handle the error
 			print("Failed to save image: \(error)")
+		}
+	}
+	private func updateImage(for imageEntity: ImageData) {
+			// Update the favorite property of the ImageData object
+			// Create a new Image entity
+		if editViewModel.isframed {
+			if frameItem?.id == 5 {
+				isframed = false
+			}else {
+				editViewModel.frameImage(item: frameItem!)
+			}
+		}
+		
+		imageEntity.blur = editViewModel.image
+		
+			// Save the changes to Core Data
+		do {
+			try moc.save()
+			presentationMode.wrappedValue.dismiss()
+		} catch {
+				// Handle the error gracefully
+			print("Failed to update favorite status: \(error)")
 		}
 	}
 }

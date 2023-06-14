@@ -13,7 +13,7 @@ struct SavedImagesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(entity: ImageData.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \ImageData.createAt, ascending: false)],
+                  sortDescriptors: [NSSortDescriptor(keyPath: \ImageData.createAt, ascending: true)],
 				  predicate: NSPredicate(format: "favorite == true"),
                   animation: .default)
     private var images: FetchedResults<ImageData>

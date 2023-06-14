@@ -19,28 +19,29 @@ struct HomeView: View {
 	
 	@State private var selectedImageIndex: Int = 0
 	@State private var isShowDelete = false
-	@State private var isShowingImageDetail = false
 	@State private var imageArray: [ImageData] = []
+	private let widthSize = UIScreen.main.bounds.width * 0.32
 	var body: some View {
 		NavigationStack {
 			ScrollView {
-				LazyVGrid(columns: Array(repeating: .init(.flexible()), count: gridLayout.count % 3 + 1), alignment: .center, spacing: 10) {
+				LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), alignment: .center, spacing: 0) {
 					ForEach(images.indices, id: \.self) { index in
 						if let uiImage = images[index].blur {
 							ZStack(alignment: .bottomTrailing) {
 								Image(uiImage: uiImage as! UIImage)
 									.resizable()
-									.frame(height: 200)
+									.frame(width: widthSize, height: widthSize)
 									.padding(.all, 4)
 									.onTapGesture {
 										selectedImageIndex = index
-										isShowingImageDetail = true
+										route = true
 									}
 								
 								Color.black.opacity(0.2)
-									.frame(height: 200)
+									.frame(height: widthSize)
 									.padding(.all, 4)
 									.opacity(isShowDelete ? 1 : 0)
+								
 								VStack {
 									Button {
 										if index < images.count {
@@ -68,6 +69,7 @@ struct HomeView: View {
 						}
 					}
 				}
+
 			}
 			.padding(.leading, 4)
 			.padding(.trailing, 4)
@@ -77,7 +79,7 @@ struct HomeView: View {
 			}) {
 				Image(systemName: isShowDelete ? "list.bullet.circle.fill" : "list.bullet.circle")
 			})
-			.navigationDestination(isPresented: $isShowingImageDetail) {
+			.navigationDestination(isPresented: $route) {
 				ImageDetailView(images: images, currentIndex: selectedImageIndex)
 			}
 		}
@@ -115,45 +117,45 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 
-struct ImageDetailView1: View {
-	@StateObject var imageEditViewModel = ImageEditViewModel()
-	var images: [ImageData]
-		//  var selectedIndex: Int
-	@State var currentIndex: Int = 0
-	@State private var route = false
-	
-	
-	var body: some View {
-		VStack {
-			Spacer()
-			TabView(selection: $currentIndex) {
-				ForEach(images.indices, id: \.self) { index in
-					if let uiImage = images[index].img {
-						Image(uiImage: uiImage)
-							.resizable()
-							.frame(height: 450)
-							.tag(index)
-							.onAppear {
-								currentIndex = index
-							}
-					}
-				}
-			}
-			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-			.navigationDestination(isPresented: $route) {
-				ImageEditView(editViewModel: imageEditViewModel)
-			}
-			Spacer()
-		}
-		.padding(.bottom, 40)
-		.navigationBarItems(trailing: Button(action: {
-			if currentIndex < images.count {
-				imageEditViewModel.image = images[currentIndex].img!
-				route = true
-			}
-		}) {
-			Image(systemName: "square.and.pencil")
-		})
-	}
-}
+//struct ImageDetailView1: View {
+//	@StateObject var imageEditViewModel = ImageEditViewModel()
+//	var images: [ImageData]
+//		//  var selectedIndex: Int
+//	@State var currentIndex: Int = 0
+//	@State private var route = false
+//
+//
+//	var body: some View {
+//		VStack {
+//			Spacer()
+//			TabView(selection: $currentIndex) {
+//				ForEach(images.indices, id: \.self) { index in
+//					if let uiImage = images[index].img {
+//						Image(uiImage: uiImage)
+//							.resizable()
+//							.frame(height: 450)
+//							.tag(index)
+//							.onAppear {
+//								currentIndex = index
+//							}
+//					}
+//				}
+//			}
+//			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//			.navigationDestination(isPresented: $route) {
+//				ImageEditView(editViewModel: imageEditViewModel, image: <#ImageData#>)
+//			}
+//			Spacer()
+//		}
+//		.padding(.bottom, 40)
+//		.navigationBarItems(trailing: Button(action: {
+//			if currentIndex < images.count {
+//				imageEditViewModel.image = images[currentIndex].img!
+//				route = true
+//			}
+//		}) {
+//			Image(systemName: "square.and.pencil")
+//		})
+//	}
+//}
 
