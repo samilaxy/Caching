@@ -31,7 +31,9 @@ struct ImageDetailView: View {
 							.padding(5)
 							.onAppear {
 								DispatchQueue.main.async {
-									//self.index = index
+									self.index = index
+									UserDefaults.standard.set(index, forKey: "Index")
+								print(	UserDefaults.standard.integer(forKey: "Index"))
 								//	image = uiImage as? UIImage
 								}
 								print("ForEach:",index)
@@ -53,7 +55,7 @@ struct ImageDetailView: View {
 				//	image = uiImage
 				//	image.map { imageEditViewModel.image = $0 }
 				// imageEditViewModel.index = index
-					print("onChange:",currentIndex)
+					print("onChange:",newIndex)
 				}
 			}
 			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

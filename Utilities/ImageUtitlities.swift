@@ -89,16 +89,19 @@ import UIKit
 import CoreImage
 
 struct ImageUtilities {
-    func gaussianBlur(image: UIImage, blurRadius: CGFloat) -> UIImage? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        let filter = CIFilter.gaussianBlur()
-        filter.inputImage = ciImage
-        filter.radius = Float(blurRadius)
-        guard let outputImage = filter.outputImage else { return nil }
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
-        return UIImage(cgImage: cgImage)
-    }
+	func gaussianBlur(image: UIImage, blurRadius: CGFloat) -> UIImage? {
+		guard let ciImage = CIImage(image: image) else { return nil }
+		let filter = CIFilter.gaussianBlur()
+		filter.inputImage = ciImage
+		filter.radius = Float(blurRadius)
+		guard let outputImage = filter.outputImage else { return nil }
+		let context = CIContext(options: nil)
+		guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
+		
+		let orientation = image.imageOrientation // Get the original image orientation
+		return UIImage(cgImage: cgImage, scale: image.scale, orientation: orientation) // Set the orientation when creating the blurred image
+	}
+
     
     func zoomImage(image: UIImage, scale: CGFloat) -> UIImage? {
         guard let ciImage = CIImage(image: image) else { return nil }
@@ -108,8 +111,8 @@ struct ImageUtilities {
         
         let context = CIContext(options: nil)
         guard let outputImage = context.createCGImage(filteredImage, from: filteredImage.extent) else { return nil }
-        
-        return UIImage(cgImage: outputImage)
+		let orientation = image.imageOrientation
+        return UIImage(cgImage: outputImage, scale: scale, orientation: orientation)
     }
     
     func rotateImage(image: UIImage, rotation: UIImage.Orientation) -> UIImage? {
@@ -193,4 +196,6 @@ struct ImageUtilities {
         }
         return returnedImg
     }
+	
+
 }

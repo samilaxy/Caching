@@ -20,26 +20,29 @@ struct HomeView: View {
 	@State private var selectedImageIndex: Int = 0
 	@State private var isShowDelete = false
 	@State private var imageArray: [ImageData] = []
-	private let widthSize = UIScreen.main.bounds.width * 0.32
+	private let widthSize = UIScreen.main.bounds.width * 0.24
 	var body: some View {
 		NavigationStack {
 			ScrollView {
-				LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), alignment: .center, spacing: 0) {
+				LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 4), alignment: .center, spacing: 0) {
 					ForEach(images.indices, id: \.self) { index in
 						if let uiImage = images[index].blur {
 							ZStack(alignment: .bottomTrailing) {
 								Image(uiImage: uiImage as! UIImage)
 									.resizable()
 									.frame(width: widthSize, height: widthSize)
-									.padding(.all, 4)
+									.padding(.all, 2)
 									.onTapGesture {
 										selectedImageIndex = index
 										route = true
 									}
+									.onAppear {
+										print("count:",images.count)
+									}
 								
 								Color.black.opacity(0.2)
 									.frame(height: widthSize)
-									.padding(.all, 4)
+									.padding(.all, 2)
 									.opacity(isShowDelete ? 1 : 0)
 								
 								VStack {
@@ -56,12 +59,14 @@ struct HomeView: View {
 									} label: {
 										if isShowDelete {
 											Image(systemName: "trash.circle.fill")
+												.font(.system(size: 15))
 												.foregroundColor(.red)
-												.padding()
+												.padding(8)
 										} else {
 											Image(systemName: "heart.circle.fill")
+												.font(.system(size: 15))
 												.foregroundColor(images[index].favorite ? .red : .gray)
-												.padding()
+												.padding(8)
 										}
 									}
 								}
@@ -107,6 +112,8 @@ struct HomeView: View {
 			print("Failed to update favorite status: \(error)")
 		}
 	}
+	
+
 	
 }
 

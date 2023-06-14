@@ -44,17 +44,11 @@ class ImageEditViewModel: ObservableObject {
 	var imgUitility = ImageUtilities()
 	var originalImg: UIImage?
 	
-	func blurImage() {
-		isProgress = true
-		DispatchQueue.global().async { [self] in
-			if let blurredImage = imgUitility.gaussianBlur(image: image, blurRadius: 5.0) {
-				DispatchQueue.main.async {
-					self.image = blurredImage
-					self.isProgress = false
-					self.isBlur = true
-				}
+	func blurImage(img: UIImage) -> UIImage {
+			guard let blurredImage = imgUitility.gaussianBlur(image: img, blurRadius: 7.0) else {
+				return img
 			}
-		}
+		return blurredImage
 	}
 	func revertImage() {
 		if let img = originalImg {
@@ -73,14 +67,14 @@ class ImageEditViewModel: ObservableObject {
 	func editOption(item: ButtonItem) {
 		switch item.id {
 			case 1:
-				blurImage()
+				image =	blurImage(img: image)
 			case 2:
 				isMenuOpen = true
 				isframed = true
 			case 3:
 				isMenuOpen = false
 			case 4:
-				rotateImage()
+				image = rotateImage(img: image)
 			case 5:
 				revertImage()
 			default:
@@ -88,10 +82,10 @@ class ImageEditViewModel: ObservableObject {
 				break
 		}
 	}
-	func rotateImage() {
+	func rotateImage(img: UIImage) -> UIImage {
 		rotateValue = (rotateValue % 4) + 1
 		let orientations: [UIImage.Orientation] = [.right, .down, .left, .up]
 		orientation = orientations[rotateValue - 1]
-		image = imgUitility.rotateImage(image: image, rotation: orientation) ?? originalImg!
+		return imgUitility.rotateImage(image: img, rotation: orientation)!
 	}
 }
