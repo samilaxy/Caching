@@ -11,7 +11,6 @@ ImageFX is an image editing app that allows users to enhance, modify, and apply 
 
 4. Retouching and Healing: The app includes retouching tools to enhance portraits or remove imperfections from photos. Users can smooth skin, remove blemishes, whiten teeth, and perform other touch-up actions to make their subjects look their best.
 
-5. Text and Overlays: ImageFX enables users to add text, captions, or watermarks to their photos. It also provides a collection of overlays and stickers that users can apply to enhance their images or add a creative touch.
 
 6. Drawing and Brush Tools: The app offers drawing and brush tools, allowing users to draw directly on their images. They can create custom drawings, annotate photos, or add artistic elements using different brush styles and colors.
 
